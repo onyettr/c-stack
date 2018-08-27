@@ -1,16 +1,12 @@
 /**
  *****************************************************************************
- * \file stack.c
- * \brief MODULE: C Programming Examples
+ * @file stack.c
+ * @brief MODULE: C Programming Examples
  *
- * \author Onyettr
- *
- * NAME: Richard Onyett 
- * EMAIL: 
+ * @author Onyettr
  *
  * PURPOSE: Simple Stack implementation
- * \bug no known bugs
- *
+ * @bug no known bugs
  ***************************************************************************** 
  */
 
@@ -29,22 +25,30 @@ static bool isFull (stack_t *pStack);
 static bool isEmpty(stack_t *pStack);
 
 /**
- *
  * @fn         static int isEmpty(stack_t *pStack)
+ *
  * @param[in]  stack_t *pStack stack to test
+ *
  * @brief      tests if stack is empty.
+ *
  * @return     bool True or False
+ *
+ * @note       none
  */
 static bool isEmpty(stack_t *pStack) {
   return pStack->StackTop == -1 ? true : false;
 }
 
 /**
- *
  * @fn         static int isFull(stack_t *pStack)
+ *
  * @param[in]  stack_t *pStack stack to test
+ *
  * @brief      tests if stack is full.
+ *
  * @return     bool True or False
+ *
+ * @note       none
  */
 static bool isFull(stack_t *pStack) {
   return pStack->StackTop == (pStack->StackMax - 1) ? true : false;
@@ -52,9 +56,13 @@ static bool isFull(stack_t *pStack) {
 
 /**
  * @fn         int pop(stack_t *pStack)
+ *
  * @brief      "pop" off the top of the stack. If the stack is empty then we throw an exception and return negative value 
+ *
  * @param[in]  stack_t *pStack - Stack to pop from
+ *
  * @return     int stack value
+ *
  * @note       Will throw an exception if no stack is created.
  */
 int pop(stack_t *pStack) {
@@ -76,12 +84,16 @@ int pop(stack_t *pStack) {
 }
 
 /**
- *
  * @fn            int peek(stack_t *pStack) 
+ *
  * @brief         "peek" the top of the stack, does not move the
  *                StackPointer
+ *
  * @param[in]     stack_t *pStack - Stack to peek from
+ *
  * @return        int stack_value
+ * 
+ * @note
  */
 int peek(stack_t *pStack) {
   if ( pStack == NULL ) {
@@ -101,12 +113,17 @@ int peek(stack_t *pStack) {
 }
 
 /**
- * 
  * @fn         int push(stack_t *pStack, int element)
+ *
  * @brief      Push element onto the provided Stack
+ *
  * @param[in]  stack_t *pStack stack to push into
+ *
  * @param[in]  int element item to push onto the stack
+ *
  * @return     -1 if error, 0 otherwise.
+ *
+ * @note
  */
 int push(stack_t *pStack, int element) {
   if ( pStack == NULL ) {
@@ -127,12 +144,17 @@ int push(stack_t *pStack, int element) {
 }
 
 /**
- * 
  * @fn         void StackDump (stack_t *pStack, int num) {
+ *
  * @brief      print out stack contents to console. 
+ *
  * @param[in]  stack_t *pStack stack to test
+ *
  * @param[in]  int num allows number of elements to be printed. 
+ *
  * @return     None
+ *
+ * @note
  */
 void StackDump (stack_t *pStack, int num) {
   int i;
@@ -186,8 +208,9 @@ stack_t *StackCreate(int maxStack) {
    * create a stack "head"
    */
   stack_t *pStackHead = (stack_t *)malloc(sizeof(stack_t));
-  if ( pStackHead == NULL )
+  if ( pStackHead == NULL ) {
     return (stack_t *)NULL;
+  }
 
   pStackHead->StackMax = maxStack; /* High water mark for the stack */
   pStackHead->StackTop = -1;       /* Ready for push                */
@@ -202,8 +225,11 @@ stack_t *StackCreate(int maxStack) {
 
 /**
  * @fn         int StackDestroy(stack_t *sp)
+ * 
  * @brief      Destroy the created stack 
+ *
  * @param[in]  stack_t *sp object to be destroyed
+ *
  * @return     -1 if Error, else 0
  */
 int StackDestroy(stack_t *pStack) {

@@ -4,22 +4,10 @@
  *
  * MODULE: C Programming Examples
  *
- * $Header: $
- * $Archive:$
- * 
- * $Workfile: $
- *
  * @author Onyettr
  *
- * NAME: Richard Onyett 
- * EMAIL: 
- *
- * PURPOSE: 
- * Header file for simple stack
+ * PURPOSE: Header file for simple stack
  * 
- * $Revision:$
- * $History: $
- *
  ***************************************************************************** 
  */
 

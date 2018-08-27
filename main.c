@@ -1,20 +1,11 @@
 /*
  *****************************************************************************
- * 
  * MODULE: C Programming Examples
- *
- * $Header: $
- * $Archive:$
- * 
- * $Workfile: $
- *
- * $Author: Onyettr $
  *
  * NAME: Richard Onyett 
  * EMAIL: 
  *
  * PURPOSE: Simple Stack implementation
- *
  * 
  * $Revision:$
  * $History: $
