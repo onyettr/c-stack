@@ -15,6 +15,7 @@ DEBUG 		     = -g
 AR    		     = ar
 CHK   		     = checkmk
 CHECK_FOR_CHK        := $(shell command -v $(CHK) 2> /dev/null)
+
 #
 # Build options
 #
@@ -73,7 +74,7 @@ test01.o:	test01.c
 #
 test_harness: libstack.a stack_check.ts
 ifndef CHECK_FOR_CHK
-	$(error "checkmk not found"
+	@echo "** checkmk command not found"
 else
 	$(CHK) stack_check.ts > stack_check.c
 	$(CC) -o stack_check.exe stack_check.c -static -L. -lcheck -lstack 
