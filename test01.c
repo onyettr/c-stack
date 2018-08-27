@@ -3,21 +3,10 @@
  * 
  * MODULE: C Programming Examples
  *
- * $Header: $
- * $Archive:$
- * 
- * $Workfile: $
- *
  * $Author: Onyettr $
- *
- * NAME: Richard Onyett (STMicroelectronics,San Jose)
- * EMAIL: richard.onyett@st.com
  *
  * PURPOSE: Test harness for Stack.
  * 
- * $Revision:$
- * $History: $
- *
  ***************************************************************************** 
  */
 
@@ -81,14 +70,14 @@ static int test01 ( void ) {
 
   StackDump(sp,0);  /* Should be empty */
 
-  push( sp, 100 );
-  push( sp, 200 );
-  push( sp, 300);
-  push( sp, 700);
+  (void)push( sp, 100 );
+  (void)push( sp, 200 );
+  (void)push( sp, 300);
+  (void)push( sp, 700);
 
   StackDump(sp, 0);
 
-  StackDestroy(sp);
+  (void)StackDestroy(sp);
   
   return 0;
 }
@@ -100,9 +89,9 @@ static int test02 ( void ) {
 
   sp = StackCreate(3);
 
-  push( sp, 100 );
-  push( sp, 200 );
-  push( sp, 300);
+  (void)push( sp, 100 );
+  (void)push( sp, 200 );
+  (void)push( sp, 300);
   StackDump(sp, 0);
 
   printf("pop %d\n", pop(sp));
@@ -119,11 +108,11 @@ static int test03 ( void ) {
   printf("\ntest03 - destroy stack tests\n" );
 
   printf("test03-01: destroy stack not created\n");
-  StackDestroy(sp);
+  (void)StackDestroy(sp);
   
   printf("test03-02: destroy stack that is created\n");
   sp = StackCreate(3);
-  StackDestroy(sp);
+  (void)StackDestroy(sp);
   
   StackDump(sp, 0);
   
@@ -136,7 +125,7 @@ static int test04 ( void ) {
   
   printf("\ntest04 - stack tests with no stack\n" );
   printf("test04.1 - push, no stack");
-  push ( sp, 100);     
+  (void)push ( sp, 100);     
 
   printf("test04.2 - pop , no stack");
   value = pop( sp );     
@@ -148,9 +137,9 @@ static int test04 ( void ) {
   StackDump( sp, 10);
 
   printf("test04.5 - destroy, no stack");
-  StackDestroy(sp);
+  (void)StackDestroy(sp);
 
-  value = value;
+  (void)value;
   
   return 0;
 }

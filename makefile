@@ -34,8 +34,8 @@ LFLAGS		= 	$(PFLAGS) -static -L.
 #
 # Code checking with splint
 #
-CODE_CHECK       = splint
-CODE_CHECK_ARGS	 = -showfunc -mustfreefresh -nullpass
+CODE_CHECK       = 	splint
+CODE_CHECK_ARGS	 = 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
 
 #
 # Libs, objs targets
@@ -53,7 +53,7 @@ TEST_STACK 	     = stack_test.ts
 # splint-it	run the Syntax checker
 # clean		Delete object and library files
 #*******************************************************************************
-#all:	stack.exe libstack.a splint-it
+
 all:	$(OBJECT_DIR) stack.exe libstack.a test_harness
 
 lib:	$(LIBS)
@@ -96,7 +96,7 @@ endif
 # Code checking target
 #
 splint-it:
-	$(CODE_CHECK) $(CODE_CHECK_ARGS) main.c  
+	$(CODE_CHECK) $(CODE_CHECK_ARGS) main.c
 	$(CODE_CHECK) $(CODE_CHECK_ARGS) trap.c   
 	$(CODE_CHECK) $(CODE_CHECK_ARGS) test01.c
 	$(CODE_CHECK) $(CODE_CHECK_ARGS) stack.c     
