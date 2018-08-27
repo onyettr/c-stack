@@ -1,0 +1,227 @@
+        -:    0:Source:stack.c
+        -:    0:Graph:stack.gcno
+        -:    0:Data:stack.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/**
+        -:    2: *****************************************************************************
+        -:    3: * \file stack.c
+        -:    4: * \brief MODULE: C Programming Examples
+        -:    5: *
+        -:    6: * \author Onyettr
+        -:    7: *
+        -:    8: * NAME: Richard Onyett 
+        -:    9: * EMAIL: 
+        -:   10: *
+        -:   11: * PURPOSE: Simple Stack implementation
+        -:   12: * \bug no known bugs
+        -:   13: *
+        -:   14: ***************************************************************************** 
+        -:   15: */
+        -:   16:
+        -:   17:/*
+        -:   18:******************************************************************************
+        -:   19:Includes
+        -:   20:******************************************************************************
+        -:   21:*/
+        -:   22:#include <stdio.h>
+        -:   23:#include <stdlib.h>
+        -:   24:#include <stdbool.h>
+        -:   25:#include "stack.h"
+        -:   26:#include "trap.h"
+        -:   27:
+        -:   28:static bool isFull (stack_t *pStack);
+        -:   29:static bool isEmpty(stack_t *pStack);
+        -:   30:
+        -:   31:/**
+        -:   32: *
+        -:   33: * @fn         static int isEmpty(stack_t *pStack)
+        -:   34: * @param[in]  stack_t *pStack stack to test
+        -:   35: * @brief      tests if stack is empty.
+        -:   36: * @return     bool True or False
+        -:   37: */
+        8:   38:static bool isEmpty(stack_t *pStack) {
+        8:   39:  return pStack->StackTop == -1 ? true : false;
+        -:   40:}
+        -:   41:
+        -:   42:/**
+        -:   43: *
+        -:   44: * @fn         static int isFull(stack_t *pStack)
+        -:   45: * @param[in]  stack_t *pStack stack to test
+        -:   46: * @brief      tests if stack is full.
+        -:   47: * @return     bool True or False
+        -:   48: */
+        7:   49:static bool isFull(stack_t *pStack) {
+        7:   50:  return pStack->StackTop == (pStack->StackMax - 1) ? true : false;
+        -:   51:}
+        -:   52:
+        -:   53:/**
+        -:   54: * @fn         int pop(stack_t *pStack)
+        -:   55: * @brief      "pop" off the top of the stack. If the stack is empty then we throw an exception and return negative value 
+        -:   56: * @param[in]  stack_t *pStack - Stack to pop from
+        -:   57: * @return     int stack value
+        -:   58: * @note       Will throw an exception if no stack is created.
+        -:   59: */
+        4:   60:int pop(stack_t *pStack) {
+        -:   61:
+        4:   62:  if ( pStack == (stack_t *)NULL ) {
+        1:   63:    Thrower(e_stacknotcreated);
+        -:   64:
+        1:   65:    return -1;      
+        -:   66:  }
+        -:   67:
+        3:   68:  if (isEmpty(pStack)) {
+    #####:   69:    printf ("Stack empty - Cannot pop\n");
+    #####:   70:    Thrower(e_stackunderflow);
+        -:   71:    
+    #####:   72:    return -1;
+        -:   73:  }
+        -:   74:
+        3:   75:  return pStack->pStack[pStack->StackTop--];
+        -:   76:}
+        -:   77:
+        -:   78:/**
+        -:   79: *
+        -:   80: * @fn            int peek(stack_t *pStack) 
+        -:   81: * @brief         "peek" the top of the stack, does not move the
+        -:   82: *                StackPointer
+        -:   83: * @param[in]     stack_t *pStack - Stack to peek from
+        -:   84: * @return        int stack_value
+        -:   85: */
+        1:   86:int peek(stack_t *pStack) {
+        1:   87:  if ( pStack == NULL ) {
+        1:   88:    Thrower(e_stacknotcreated);
+        -:   89:
+        1:   90:    return -1;      
+        -:   91:  }
+        -:   92:  
+    #####:   93:  if (isEmpty(pStack)) {
+    #####:   94:    printf ("Stack empty - Cannot peek\n");
+    #####:   95:    Thrower(e_stackunderflow);
+        -:   96:    
+    #####:   97:    return -1;
+        -:   98:  }
+        -:   99:
+    #####:  100:  return pStack->pStack[pStack->StackTop];  
+        -:  101:}
+        -:  102:
+        -:  103:/**
+        -:  104: * 
+        -:  105: * @fn         void push(stack_t *pStack, int element) 
+        -:  106: * @brief      Push element onto the provided Stack
+        -:  107: * @param[in]  stack_t *pStack stack to push into
+        -:  108: * @param[in]  int element item to push onto the stack
+        -:  109: * @return     None
+        -:  110: */
+        8:  111:void push(stack_t *pStack, int element) {
+        8:  112:  if ( pStack == NULL ) {
+        1:  113:    Thrower(e_stacknotcreated);
+        -:  114:
+        1:  115:    return;      
+        -:  116:  }
+        -:  117:  
+        7:  118:  if (isFull(pStack)) {
+    #####:  119:    printf ("Stack Overflow - Cannot push\n");
+    #####:  120:    Thrower(e_stackoverflow);
+        -:  121:    
+    #####:  122:    return;
+        -:  123:  }
+        -:  124:
+        7:  125:  pStack->pStack[++pStack->StackTop] = element;    
+        -:  126:}
+        -:  127:
+        -:  128:/**
+        -:  129: * 
+        -:  130: * @fn         void StackDump (stack_t *pStack, int num) {
+        -:  131: * @brief      print out stack contents to console. 
+        -:  132: * @param[in]  stack_t *pStack stack to test
+        -:  133: * @param[in]  int num allows number of elements to be printed. 
+        -:  134: * @return     None
+        -:  135: */
+        6:  136:void StackDump (stack_t *pStack, int num) {
+        -:  137:  int i;
+        6:  138:  int numtoShow = 0;
+        -:  139:
+        6:  140:  if ( pStack == NULL ) {
+        1:  141:    Thrower(e_stacknotcreated);
+        -:  142:
+        1:  143:    return;      
+        -:  144:  }
+        -:  145:  
+        5:  146:  if (isEmpty(pStack)) {
+        3:  147:    printf ("Stack empty - nothing to display\n");
+        -:  148:
+        3:  149:    return;
+        -:  150:  }
+        -:  151:
+        2:  152:  if ( num == 0) {
+        2:  153:    numtoShow = pStack->StackMax;
+        -:  154:  } else {
+    #####:  155:    numtoShow = num;
+        -:  156:  }
+        -:  157:  
+       10:  158:  for (i=0; i < numtoShow; i++) {
+        8:  159:    printf("Stack[%4d] = %d", i, pStack->pStack[i] );
+        8:  160:    if ( i == pStack->StackTop ) {
+        2:  161:      printf("  <--- Stacktop");
+        -:  162:    }
+        8:  163:    printf("\n");  
+        -:  164:  }
+        -:  165:}
+        -:  166:
+        -:  167:/**
+        -:  168: *
+        -:  169: * @fn         stack_t *StackCreate(int maxStack)
+        -:  170: * @brief      creates a stack of the size specified in maxStack 
+        -:  171: *             using malloc().
+        -:  172: * @param[in]  int maxStack - Maximum size of the Stack to create
+        -:  173: * @return     stack_t pointer to the stack_t structure
+        -:  174: */
+        3:  175:stack_t *StackCreate(int maxStack) {
+        -:  176:
+        -:  177:  /* 
+        -:  178:   * Cannot allocate negative size stacks
+        -:  179:   */
+        3:  180:  if ( maxStack < 0) {
+    #####:  181:    return (stack_t *)NULL;
+        -:  182:  }
+        -:  183:  
+        -:  184:  /*
+        -:  185:   * create a stack "head"
+        -:  186:   */
+        3:  187:  stack_t *pStackHead = (stack_t *)malloc(sizeof(stack_t));
+        3:  188:  if ( pStackHead == NULL )
+    #####:  189:    return (stack_t *)NULL;
+        -:  190:
+        3:  191:  pStackHead->StackMax = maxStack; /* High water mark for the stack */
+        3:  192:  pStackHead->StackTop = -1;       /* Ready for push                */
+        -:  193:
+        -:  194:  /*
+        -:  195:   * create the actual stack to push and pull from 
+        -:  196:   */
+        3:  197:  pStackHead->pStack   = (int *)malloc(sizeof(int) * maxStack);
+        -:  198:
+        3:  199:  return pStackHead;
+        -:  200:}
+        -:  201:
+        -:  202:/**
+        -:  203: * @fn         void StackDestroy(stack_t *sp)
+        -:  204: * @brief      Destroy the created stack 
+        -:  205: * @param[in]  stack_t *sp object to be destroyed
+        -:  206: * @return     None
+        -:  207: */
+        4:  208:void StackDestroy(stack_t *pStack) {
+        -:  209:
+        4:  210:  if ( pStack == (stack_t *)NULL) {
+        2:  211:    Thrower(e_stacknotcreated);    
+        -:  212:
+        2:  213:    return;
+        -:  214:  }
+        -:  215:
+        -:  216:  /*
+        -:  217:   * destroy the actual stack to push and pull from 
+        -:  218:   */
+        2:  219:  free (pStack->pStack); 
+        -:  220:
+        2:  221:  return;
+        -:  222:}
