@@ -23,9 +23,9 @@
 #test push_positive_with_stack_beyond_limit
    stack_t *sp = (stack_t*)NULL;
    sp = StackCreate(2);
-   fail_unless(push(sp,101) == -1, "push with stack failed beyond limit");
-   fail_unless(push(sp,102) == -1, "push with stack failed beyond limit");      
-   fail_unless(push(sp,103) == -1, "push with stack failed beyond limit");
+   fail_unless(push(sp,101) == 0, "push fail");
+   fail_unless(push(sp,102) == 0, "push fail");      
+   fail_unless(push(sp,103) == -1, "push beyond limit");
    
 #test pop_negative_no_stack
    stack_t *sp = (stack_t*)NULL;
@@ -60,9 +60,9 @@
 #test peek_negative_stack_no_push
    stack_t *sp = NULL;
    sp = StackCreate(5);
-   push(sp, 101);
+//   push(sp, 101);
 
-   fail_unless(peek(sp) != -1, "peek with no push failed");   
+   fail_unless(peek(sp) == -1, "peek with no push failed");   
 
 #test destroy_stack_no_stack
    stack_t *sp = NULL;

@@ -1,23 +1,10 @@
-/*
+/**
  *****************************************************************************
- * 
  * MODULE: C Programming Examples
  *
- * $Header: $
- * $Archive:$
- * 
- * $Workfile: $
- *
- * $Author: Onyettr $
- *
- * NAME: Richard Onyett 
- * EMAIL: 
+ * @Author   Onyettr
  *
  * PURPOSE: Simple Stack implementation
- *
- * 
- * $Revision:$
- * $History: $
  *
  ***************************************************************************** 
  */
@@ -32,14 +19,17 @@ Includes
 #include "stack.h"
 #include "trap.h"
 
-/*
- -- --------------------------------------------------------------
- -- void Thrower(stack_exception_t exp) - excep handler
- --    stack_exception_t exp  - Execption to "throw"
- -- 
- -- returns: none
- -- --------------------------------------------------------------
-*/
+/**
+ * @brief     Exception Handler
+ *
+ * @function  void Thrower(stack_exception_t exp)
+ *
+ * @param[in] stack_exception_t exp  - Execption to "throw"
+ *
+ * @return    none
+ *
+ * @note      none
+ */
 void Thrower(stack_exception_t exp) {
   printf( "ouch something bad went on = ");
   if (exp == e_stackoverflow ) {
