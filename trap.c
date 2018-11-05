@@ -2,7 +2,7 @@
  *****************************************************************************
  * MODULE: C Programming Examples
  *
- * @Author   Onyettr
+`* @author   Onyettr
  *
  * PURPOSE: Simple Stack implementation
  *
@@ -22,9 +22,9 @@ Includes
 /**
  * @brief     Exception Handler
  *
- * @function  void Thrower(stack_exception_t exp)
+ * @fn        void Thrower(stack_exception_t exp)
  *
- * @param[in] stack_exception_t exp  - Execption to "throw"
+ * @param[in] exp  - Execption to "throw"
  *
  * @return    none
  *

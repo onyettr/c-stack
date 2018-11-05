@@ -1,11 +1,8 @@
 /**
  *****************************************************************************
  * @file stack.c
- * @brief MODULE: C Programming Examples
- *
- * @author Onyettr
- *
- * PURPOSE: Simple Stack implementation
+ * @brief MODULE: C Programming Examples -  Simple Stack implementation
+ * @author onyettr
  * @bug no known bugs
  ***************************************************************************** 
  */
@@ -27,7 +24,7 @@ static bool isEmpty(stack_t *pStack);
 /**
  * @fn         static int isEmpty(stack_t *pStack)
  *
- * @param[in]  stack_t *pStack stack to test
+ * @param[in]  *pStack stack to test
  *
  * @brief      tests if stack is empty.
  *
@@ -42,7 +39,7 @@ static bool isEmpty(stack_t *pStack) {
 /**
  * @fn         static int isFull(stack_t *pStack)
  *
- * @param[in]  stack_t *pStack stack to test
+ * @param[in]  *pStack stack to test
  *
  * @brief      tests if stack is full.
  *
@@ -59,7 +56,7 @@ static bool isFull(stack_t *pStack) {
  *
  * @brief      "pop" off the top of the stack. If the stack is empty then we throw an exception and return negative value 
  *
- * @param[in]  stack_t *pStack - Stack to pop from
+ * @param[in]  *pStack - Stack to pop from
  *
  * @return     int stack value
  *
@@ -89,7 +86,7 @@ int pop(stack_t *pStack) {
  * @brief         "peek" the top of the stack, does not move the
  *                StackPointer
  *
- * @param[in]     stack_t *pStack - Stack to peek from
+ * @param[in]     *pStack - Stack to peek from
  *
  * @return        int stack_value
  * 
@@ -117,9 +114,8 @@ int peek(stack_t *pStack) {
  *
  * @brief      Push element onto the provided Stack
  *
- * @param[in]  stack_t *pStack stack to push into
- *
- * @param[in]  int element item to push onto the stack
+ * @param[in]  *pStack stack to push into
+ * @param[in]  element item to push onto the stack
  *
  * @return     -1 if error, 0 otherwise.
  *
@@ -148,9 +144,8 @@ int push(stack_t *pStack, int element) {
  *
  * @brief      print out stack contents to console. 
  *
- * @param[in]  stack_t *pStack stack to test
- *
- * @param[in]  int num allows number of elements to be printed. 
+ * @param[in]  *pStack stack to test
+ * @param[in]  num allows number of elements to be printed. 
  *
  * @return     None
  *
@@ -192,8 +187,8 @@ void StackDump (stack_t *pStack, int num) {
  * @fn         stack_t *StackCreate(int maxStack)
  * @brief      creates a stack of the size specified in maxStack 
  *             using malloc().
- * @param[in]  int maxStack - Maximum size of the Stack to create
- * @return     stack_t pointer to the stack_t structure
+ * @param[in]  maxStack - Maximum size of the Stack to create
+ * @return     stack_t pointer to the stack_t structure or NULL
  */
 stack_t *StackCreate(int maxStack) {
 
@@ -228,7 +223,7 @@ stack_t *StackCreate(int maxStack) {
  * 
  * @brief      Destroy the created stack 
  *
- * @param[in]  stack_t *sp object to be destroyed
+ * @param[in]  *pStack object to be destroyed
  *
  * @return     -1 if Error, else 0
  */
