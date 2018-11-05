@@ -1,15 +1,9 @@
-/*
+/**
  *****************************************************************************
  * MODULE: C Programming Examples
  *
- * NAME: Richard Onyett 
- * EMAIL: 
- *
+ * @author onyettr
  * PURPOSE: Simple Stack implementation
- * 
- * $Revision:$
- * $History: $
- *
  ***************************************************************************** 
  */
 
@@ -26,8 +20,7 @@ Includes
 int main ( void ) {
   int result = 0;
   
-  result = test_run();
-  if (result == 0) printf ("test_run - ok\n");
+  if ((result = test_push()) == 0) printf ("test_run - ok\n");
 
   return 0;
 }

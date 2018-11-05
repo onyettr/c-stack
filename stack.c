@@ -1,9 +1,9 @@
 /**
  *****************************************************************************
- * @file stack.c
- * @brief MODULE: C Programming Examples -  Simple Stack implementation
+ * @file   stack.c
+ * @brief  C Programming Examples -  Simple Stack implementation
  * @author onyettr
- * @bug no known bugs
+ * @bug    no known bugs
  ***************************************************************************** 
  */
 
@@ -71,7 +71,6 @@ int pop(stack_t *pStack) {
   }
 
   if (isEmpty(pStack)) {
-    printf ("Stack empty - Cannot pop\n");
     Thrower(e_stackunderflow);
     
     return -1;
@@ -100,7 +99,6 @@ int peek(stack_t *pStack) {
   }
   
   if (isEmpty(pStack)) {
-    printf ("Stack empty - Cannot peek\n");
     Thrower(e_stackunderflow);
     
     return -1;
