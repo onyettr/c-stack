@@ -1,13 +1,9 @@
 /**
  *****************************************************************************
- * @file stack.h
- *
- * MODULE: C Programming Examples
- *
+ * @file   stack.h
+ * @brief  Programming Examples
  * @author Onyettr
- *
  * PURPOSE: Header file for simple stack
- * 
  ***************************************************************************** 
  */
 
@@ -78,6 +74,15 @@ int peek (stack_t *pStack);
  *  @return     -1 if error, 0 otherwise
  */
 int push(stack_t *pStack, int element);
+
+/**
+ * @fn         int size(stack_t *pStack)
+ * @brief      return the number of elements on the stack
+ * @param[in]  *pStack stack
+ * @return     size
+ * @note
+ */
+int size(stack_t *pStack);
 
 /**
  * @fn         stack_t *StackCreate(int maxStack)

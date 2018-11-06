@@ -21,6 +21,6 @@ int main ( void ) {
   int result = 0;
   
   if ((result = test_push()) == 0) printf ("test_run - ok\n");
-
+  if ((result = test_size()) == 0) printf ("test_run - ok\n");
   return 0;
 }

@@ -16,6 +16,7 @@ Includes
 #define __TEST_H__
 
 int test_push(void);
+int test_size(void);
 
 /*
 ******************************************************************************

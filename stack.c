@@ -138,6 +138,27 @@ int push(stack_t *pStack, int element) {
 }
 
 /**
+ * @fn         int size(stack_t *pStack)
+ *
+ * @brief      return the number of elements on the stack
+ *
+ * @param[in]  *pStack stack
+ *
+ * @return     size
+ *
+ * @note
+ */
+int size(stack_t *pStack) {
+  if ( pStack == NULL ) {
+    Thrower(e_stacknotcreated);
+
+    return -1;      
+  }
+  
+  return pStack->StackTop+1;
+}
+
+/**
  * @fn         void StackDump (stack_t *pStack, int num) {
  *
  * @brief      print out stack contents to console. 
