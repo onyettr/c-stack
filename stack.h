@@ -59,12 +59,12 @@ Global variables
 int pop  (stack_t *pStack);
 
 /**
- *  @fn         int peek  (stack_t *pStack)
- *  @brief      peeks at the top of the stack but doesn't pop
+ *  @fn         int top  (stack_t *pStack)
+ *  @brief      returns the top of the stack but doesn't pop
  *  @param[in]  *pStack - Pointer to the stack
  *  @return     returns (int) element
  */
-int peek (stack_t *pStack);
+int top  (stack_t *pStack);
 
 /**
  *  @fn         int push  (stack_t *pStack)

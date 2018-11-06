@@ -80,9 +80,9 @@ int pop(stack_t *pStack) {
 }
 
 /**
- * @fn            int peek(stack_t *pStack) 
+ * @fn            int top(stack_t *pStack) 
  *
- * @brief         "peek" the top of the stack, does not move the
+ * @brief         Returns the top of the stack, does not move the
  *                StackPointer
  *
  * @param[in]     *pStack - Stack to peek from
@@ -91,7 +91,7 @@ int pop(stack_t *pStack) {
  * 
  * @note
  */
-int peek(stack_t *pStack) {
+int top(stack_t *pStack) {
   if ( pStack == NULL ) {
     Thrower(e_stacknotcreated);
 

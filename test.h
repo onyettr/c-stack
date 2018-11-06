@@ -17,6 +17,7 @@ Includes
 
 int test_push(void);
 int test_size(void);
+int test_top (void);
 
 /*
 ******************************************************************************

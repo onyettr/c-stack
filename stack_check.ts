@@ -45,24 +45,23 @@
 
    fail_unless(pop(sp) == 101, "pop failed");   
 
-#test peek_positive_with_stack
+#test top_positive_with_stack
    stack_t *sp;
    sp = StackCreate(5);
    push(sp, 101);
 
-   fail_unless(peek(sp) != -1, "peek with stack failed");   
+   fail_unless(top(sp) != -1, "top with stack failed");   
 
-#test peek_negative_no_stack
-   stack_t *sp = NULL;
-
-   fail_unless(peek(sp) == -1, "peek with no stack failed");   
-
-#test peek_negative_stack_no_push
+#test top_negative_null_stack
    stack_t *sp = NULL;
    sp = StackCreate(5);
-//   push(sp, 101);
 
-   fail_unless(peek(sp) == -1, "peek with no push failed");   
+   fail_unless(top(sp) == -1, "top with empty stack failed");   
+
+#test top_negative_empty_stack
+   stack_t *sp = NULL;
+
+   fail_unless(top(sp) == -1, "top with no stack failed");   
 
 #test destroy_stack_no_stack
    stack_t *sp = NULL;
