@@ -41,10 +41,11 @@ CODE_CHECK_ARGS	 = 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
 # Libs, objs targets
 # libstack library is built from trap handling and the stack implementation. 
 #
-OBJS  		     = $(OBJECT_DIR)/main.o \
+OBJS  		     = $(OBJECT_DIR)/main.o 		\
 		       $(OBJECT_DIR)/test_empty.o	\
 		       $(OBJECT_DIR)/test_push.o	\
 		       $(OBJECT_DIR)/test_size.o	\
+		       $(OBJECT_DIR)/test_pop.o		\
 		       $(OBJECT_DIR)/test_top.o	
 
 LIBS  		     = libstack.a
@@ -86,6 +87,8 @@ $(OBJECT_DIR)/test_size.o:	test_size.c
 	$(CC) $(CFLAGS) $(DEBUG) test_size.c -o $(OBJECT_DIR)/test_size.o
 $(OBJECT_DIR)/test_top.o:	test_top.c
 	$(CC) $(CFLAGS) $(DEBUG) test_top.c -o $(OBJECT_DIR)/test_top.o
+$(OBJECT_DIR)/test_pop.o:	test_pop.c
+	$(CC) $(CFLAGS) $(DEBUG) test_pop.c -o $(OBJECT_DIR)/test_pop.o
 $(OBJECT_DIR)/test01.o:	test01.c
 	$(CC) $(CFLAGS) $(DEBUG) test01.c -o $(OBJECT_DIR)/test01.o
 
@@ -124,6 +127,7 @@ clean:
 	rm -f $(OBJECT_DIR)/test_push.o
 	rm -f $(OBJECT_DIR)/test_size.o
 	rm -f $(OBJECT_DIR)/test_top.o
+	rm -f $(OBJECT_DIR)/test_pop.o
 	rm -f $(OBJECT_DIR)/main.o
 	rm -f $(OBJECT_DIR)/trap.o
 	rm -f *.gcno

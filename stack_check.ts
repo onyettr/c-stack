@@ -1,27 +1,42 @@
+#include <stdio.h>
 #include "stack.h"
 
 #test create_negative
    stack_t *sp;
+
+   printf("create_negative\n");
+   
    sp = StackCreate(-1);
    fail_unless(sp == NULL, "negative create failed");   
 
 #test create_positive
    stack_t *sp;
+
+   printf("create_positive\n");
+
    sp = StackCreate(5);
    fail_unless(sp != NULL, "positive create failed");   
 
 #test push_negative_no_stack
    stack_t *sp = (stack_t*)NULL;
 
+   printf("push_negative_no_stack\n");
+   
    fail_unless(push(sp,101) == -1, "push no stack failed");   
 
 #test push_positive_with_stack
    stack_t *sp = (stack_t*)NULL;
+
+   printf("push_positive_no_stack\n");
+   
    sp = StackCreate(4);
    fail_unless(push(sp,101) ==  0, "push with stack failed");   
 
 #test push_positive_with_stack_beyond_limit
    stack_t *sp = (stack_t*)NULL;
+
+   printf("push_positive_with_stack_beyond_limit\n");
+   
    sp = StackCreate(2);
    fail_unless(push(sp,101) == 0, "push fail");
    fail_unless(push(sp,102) == 0, "push fail");      
