@@ -45,6 +45,7 @@ OBJS  		     = $(OBJECT_DIR)/main.o 		\
 		       $(OBJECT_DIR)/test_empty.o	\
 		       $(OBJECT_DIR)/test_push.o	\
 		       $(OBJECT_DIR)/test_size.o	\
+		       $(OBJECT_DIR)/test_swap.o	\
 		       $(OBJECT_DIR)/test_pop.o		\
 		       $(OBJECT_DIR)/test_top.o	
 
@@ -83,6 +84,8 @@ $(OBJECT_DIR)/test_empty.o:	test_empty.c
 	$(CC) $(CFLAGS) $(DEBUG) test_empty.c -o $(OBJECT_DIR)/test_empty.o
 $(OBJECT_DIR)/test_push.o:	test_push.c
 	$(CC) $(CFLAGS) $(DEBUG) test_push.c -o $(OBJECT_DIR)/test_push.o
+$(OBJECT_DIR)/test_swap.o:	test_swap.c
+	$(CC) $(CFLAGS) $(DEBUG) test_swap.c -o $(OBJECT_DIR)/test_swap.o
 $(OBJECT_DIR)/test_size.o:	test_size.c
 	$(CC) $(CFLAGS) $(DEBUG) test_size.c -o $(OBJECT_DIR)/test_size.o
 $(OBJECT_DIR)/test_top.o:	test_top.c
@@ -126,6 +129,7 @@ clean:
 	rm -f $(OBJECT_DIR)/test_empty.o
 	rm -f $(OBJECT_DIR)/test_push.o
 	rm -f $(OBJECT_DIR)/test_size.o
+	rm -f $(OBJECT_DIR)/test_swap.o
 	rm -f $(OBJECT_DIR)/test_top.o
 	rm -f $(OBJECT_DIR)/test_pop.o
 	rm -f $(OBJECT_DIR)/main.o

@@ -139,6 +139,44 @@ int push(stack_t *pStack, int element) {
 }
 
 /**
+ * @fn         void swap(stack_t *srcStack, stack_t *dstStack)
+ *
+ * @brief      Swap stacks from src -> dst
+ *
+ * @param[in]  *srcStack source stack
+ * @param[in]  *dstStack destination stack
+ *
+ * @return     -1 if error, 0 otherwise.
+ *
+ * @note
+ */
+int swap(stack_t *srcStack, stack_t *dstStack) {
+  int i;
+
+  if ( srcStack == NULL || dstStack == NULL) {
+    Thrower(e_stacknotcreated);
+
+    return -1;      
+  }
+
+  /*
+   * Do we need to allocate more stack space?
+   */
+  if (srcStack->StackMax <= dstStack->StackMax) {
+    for (i=0; i < srcStack->StackMax; i++) {
+      int tmp;
+      tmp = srcStack->pStack[i];
+      printf("Before %d src %d, dst %d\n", i, tmp, dstStack->pStack[i]);
+      srcStack->pStack[i] = dstStack->pStack[i];
+      dstStack->pStack[i] = tmp;
+      printf("after  %d src %d, dst %d\n", i, tmp, dstStack->pStack[i]);      
+    }
+  }
+
+  return 0;
+}
+
+/**
  * @fn         bool empty(stack_t *pStack) 
  *
  * @brief      is the stack empty?

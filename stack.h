@@ -95,6 +95,16 @@ bool empty(stack_t *pStack);
 int size(stack_t *pStack);
 
 /**
+ * @fn         int swap(stack_t *srcStack, stack_t *dstStack)
+ * @brief      Swap stacks from src -> dst
+ * @param[in]  *srcStack source stack
+ * @param[in]  *dstStack destination stack
+ * @return     -1 if error, 0 otherwise.
+ * @note
+ */
+int swap(stack_t *srcStack, stack_t *dstStack);
+
+/**
  * @fn         stack_t *StackCreate(int maxStack)
  * @brief      creates a stack of the size specified in maxStack 
  *             using malloc().
