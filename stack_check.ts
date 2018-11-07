@@ -63,6 +63,23 @@
 
    fail_unless(top(sp) == -1, "top with no stack failed");   
 
+#test empty_postive__not_empty_stack
+   stack_t *sp = NULL;
+   sp = StackCreate(5);
+
+   (void)push(sp,400);
+   (void)push(sp,500);
+   (void)push(sp,600);
+   (void)push(sp,700);
+
+   fail_unless(empty(sp) == 0, "empty with not empty stack");   
+
+#test empty_negatve_empty_stack
+   stack_t *sp = NULL;
+
+   sp = StackCreate(5);
+   fail_unless(empty(sp) == 1, "empty with empty stack");   
+
 #test destroy_stack_no_stack
    stack_t *sp = NULL;
 

@@ -79,6 +79,7 @@ int pop(stack_t *pStack) {
   return pStack->pStack[pStack->StackTop--];
 }
 
+
 /**
  * @fn            int top(stack_t *pStack) 
  *
@@ -135,6 +136,32 @@ int push(stack_t *pStack, int element) {
   pStack->pStack[++pStack->StackTop] = element;
 
   return 0;
+}
+
+/**
+ * @fn         bool empty(stack_t *pStack) 
+ *
+ * @brief      is the stack empty?
+ *
+ * @param[in]  *pStack - Stack to pop from
+ *
+ * @return     bool TRUE, if empty, false otherwise
+ *
+ * @note       Will throw an exception if no stack is created.
+ */
+bool empty(stack_t *pStack) {
+
+  if ( pStack == (stack_t *)NULL ) {
+    Thrower(e_stacknotcreated);
+
+    return -1;      
+  }
+
+  if (isEmpty(pStack)) {
+    return true;
+  }
+
+  return false;
 }
 
 /**

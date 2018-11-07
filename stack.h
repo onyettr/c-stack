@@ -6,14 +6,15 @@
  * PURPOSE: Header file for simple stack
  ***************************************************************************** 
  */
+#ifndef __STACK_H__
+#define __STACK_H__
 
 /*
 ******************************************************************************
 Includes
 ******************************************************************************
 */
-#ifndef __STACK_H__
-#define __STACK_H__
+#include <stdbool.h>
 
 /*
 ******************************************************************************
@@ -74,6 +75,15 @@ int top  (stack_t *pStack);
  *  @return     -1 if error, 0 otherwise
  */
 int push(stack_t *pStack, int element);
+
+/**
+ * @fn         bool empty(stack_t *pStack) 
+ * @brief      is the stack empty?
+ * @param[in]  *pStack - Stack to pop from
+ * @return     bool TRUE, if empty, false otherwise
+ * @note       Will throw an exception if no stack is created.
+ */
+bool empty(stack_t *pStack);
 
 /**
  * @fn         int size(stack_t *pStack)
