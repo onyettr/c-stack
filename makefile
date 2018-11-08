@@ -4,14 +4,14 @@
 # Author           : ronyett
 #*******************************************************************************
 
-SRC_DIR		= 	.
-OBJECT_DIR	= 	$(SRC_DIR)/object
+SRC_DIR			= 	.
+OBJECT_DIR		= 	$(SRC_DIR)/object
 MAKE_DIR_CMD	= 	mkdir $(OBJECT_DIR)
 
-CC  		= 	gcc
-LINK  		= 	gcc
-AR		= 	ar
-CHK   		= 	checkmk
+CC  			= 	gcc
+LINK  			= 	gcc
+AR				= 	ar
+CHK   			= 	checkmk
 CHECK_FOR_CHK	:= 	$(shell command -v $(CHK) 2> /dev/null)
 
 #*******************************************************************************
@@ -19,14 +19,14 @@ CHECK_FOR_CHK	:= 	$(shell command -v $(CHK) 2> /dev/null)
 #*******************************************************************************
 
 # gcov and gprof build options
-COVPFLAGS	= 	-fprofile-arcs -ftest-coverage
-PROFLAGS	= 	-pg
-#PFLAGS		= 	$(COVFLAGS)
+COVPFLAGS		= 	-fprofile-arcs -ftest-coverage
+PROFLAGS		= 	-pg
+#PFLAGS			= 	$(COVFLAGS)
 
 # Main CC and Link build strings
-DEBUG		= 	-g
-CFLAGS		= 	-c -std=c99 -Wall -pedantic $(PFLAGS)
-LFLAGS		= 	$(PFLAGS) -static -L.
+DEBUG			= 	-g
+CFLAGS			= 	-c -std=c99 -Wall -pedantic $(PFLAGS)
+LFLAGS			= 	$(PFLAGS) -static -L.
 
 # -DDEBUG_TRACE	Will turn on deep trace per function
 # -DEXCEPTION	Will use the real exceptions with the 'try' that's in the test harness
@@ -41,13 +41,13 @@ CODE_CHECK_ARGS	 = 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
 # Libs, objs targets
 # libstack library is built from trap handling and the stack implementation. 
 #
-OBJS  		     = $(OBJECT_DIR)/main.o 		\
-		       $(OBJECT_DIR)/test_empty.o	\
-		       $(OBJECT_DIR)/test_push.o	\
-		       $(OBJECT_DIR)/test_size.o	\
-		       $(OBJECT_DIR)/test_swap.o	\
-		       $(OBJECT_DIR)/test_pop.o		\
-		       $(OBJECT_DIR)/test_top.o	
+OBJS  		     =	$(OBJECT_DIR)/main.o 		\
+		       		$(OBJECT_DIR)/test_empty.o	\
+		       		$(OBJECT_DIR)/test_push.o	\
+		       		$(OBJECT_DIR)/test_size.o	\
+		       		$(OBJECT_DIR)/test_swap.o	\
+		       		$(OBJECT_DIR)/test_pop.o	\
+		       		$(OBJECT_DIR)/test_top.o	
 
 LIBS  		     = libstack.a
 
@@ -68,8 +68,8 @@ lib:	$(LIBS)
 stack.exe:	$(OBJS) $(LIBS)
 	$(LINK) $(OBJS) $(LFLAGS) -lstack -o stack.exe
 
-libstack.a:	stack.o trap.o
-	$(AR) rcs libstack.a stack.o trap.o
+libstack.a:	$(OBJECT_DIR)/stack.o $(OBJECT_DIR)/trap.o
+	$(AR) rcs libstack.a $(OBJECT_DIR)/stack.o $(OBJECT_DIR)/trap.o
 
 $(OBJECT_DIR):
 	-$(MAKE_DIR_CMD)
