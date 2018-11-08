@@ -148,29 +148,63 @@ int push(stack_t *pStack, int element) {
  *
  * @return     -1 if error, 0 otherwise.
  *
- * @note
+ * @note        If the src < dst || dst < src we can simply copy, if not we
+ *              need to reallocated more memory.
  */
 int swap(stack_t *srcStack, stack_t *dstStack) {
   int i;
+  int counter;
 
+  /*
+   * TODO: If one is NULL we should simply allocate a new stack
+   */
   if ( srcStack == NULL || dstStack == NULL) {
-    Thrower(e_stacknotcreated);
+	  Thrower(e_stacknotcreated);
 
-    return -1;      
+	  return -1;
+  }
+
+  if (srcStack->pStack == NULL || dstStack->pStack == NULL) {
+	  Thrower(e_stacknotcreated);
+printf("swap - stacked has been freed already!\n");
+	  return -1;
   }
 
   /*
    * Do we need to allocate more stack space?
+   * If not we can simply copy from one to the other
    */
-  if (srcStack->StackMax <= dstStack->StackMax) {
-    for (i=0; i < srcStack->StackMax; i++) {
-      int tmp;
-      tmp = srcStack->pStack[i];
-      printf("Before %d src %d, dst %d\n", i, tmp, dstStack->pStack[i]);
-      srcStack->pStack[i] = dstStack->pStack[i];
-      dstStack->pStack[i] = tmp;
-      printf("after  %d src %d, dst %d\n", i, tmp, dstStack->pStack[i]);      
-    }
+  if (srcStack->StackMax == dstStack->StackMax) {
+	  if (srcStack->StackMax <= dstStack->StackMax ) {
+		  counter = srcStack->StackMax;
+	  }
+	  if (dstStack->StackMax <= srcStack->StackMax ) {
+	  		  counter = dstStack->StackMax;
+	  }
+
+	  for (i=0; i < counter; i++) {
+		  int tmp;
+		  tmp = srcStack->pStack[i];
+		  srcStack->pStack[i] = dstStack->pStack[i];
+		  dstStack->pStack[i] = tmp;
+	  }
+  }
+
+  if (srcStack->StackMax < dstStack->StackMax) {                /* We need to reallocate more memory for the source */
+	  int *newStack;
+
+	  newStack = realloc(srcStack->pStack, dstStack->StackMax); /* Add more memory                                  */
+	  srcStack->pStack = newStack;                              /* update to the new stack                          */
+	  srcStack->StackMax = dstStack->StackMax;                  /* update the stack size                            */
+printf("realloc\n");
+
+	  counter = dstStack->StackMax;
+	  for (i=0; i < counter; i++) {
+		  int tmp;
+		  tmp = srcStack->pStack[i];
+		  srcStack->pStack[i] = dstStack->pStack[i];
+		  dstStack->pStack[i] = tmp;
+	  }
   }
 
   return 0;
@@ -239,7 +273,7 @@ void StackDump (stack_t *pStack, int num) {
   int i;
   int numtoShow = 0;
 
-  if ( pStack == NULL ) {
+  if ( pStack == NULL || pStack->pStack == NULL) {
     Thrower(e_stacknotcreated);
 
     return;      
@@ -323,6 +357,7 @@ int StackDestroy(stack_t *pStack) {
    * destroy the actual stack to push and pull from 
    */
   free (pStack->pStack); 
+  pStack->pStack = NULL;
 
   return 0;
 }

@@ -60,7 +60,13 @@ int test_swap ( void )
 {
   stack_t *sp = NULL;  
   stack_t *sp1= NULL;
-  
+  stack_t *sp2 = NULL;
+  stack_t *sp3 = NULL;
+  stack_t *sp4 = NULL;
+  stack_t *sp5 = NULL;
+  stack_t *sp6 = NULL;
+  stack_t *sp7 = NULL;
+
   printf("test_swap - create <int> stack\n");
 
   sp = StackCreate(4);
@@ -76,20 +82,96 @@ int test_swap ( void )
   (void)push(sp1,301);
   (void)push(sp1,701);
 
-  StackDump(sp, 0);
-  
-  printf("\tTest01 swap - same size\n");
   (void)StackDestroy(sp);
-  swap(sp, sp1);
+  printf("\tTest01 swap - same size, but stack freed -1 = %d\n", swap(sp,sp1));
 
-  printf("sp1\n");
-  StackDump(sp1, 0);
-  printf("sp\n");  
-  StackDump(sp, 0);
-  
-  printf("test_swap - Ends\n");
+  /*
+   * Test02 positive swap - same size
+   */
+  sp2 = StackCreate(4);
+  sp3 = StackCreate(4);
 
-  return 0;
+  (void)push(sp2,1);
+  (void)push(sp2,2);
+  (void)push(sp2,3);
+  (void)push(sp2,4);
+  printf("\tTest02 - before sp2\n");
+  StackDump(sp2,0);
+
+  (void)push(sp3,5);
+  (void)push(sp3,6);
+  (void)push(sp3,7);
+  (void)push(sp3,8);
+  printf("\tTest02 - before sp3\n");
+  StackDump(sp3,0);
+
+  printf("Test02 swap same size, but ok 0 = %d\n", swap(sp2,sp3));
+  printf("\tTest02 - after sp2\n");
+  StackDump(sp2,0);
+  printf("\tTest02 - after sp3\n");
+  StackDump(sp3,0);
+#if 0
+   /*
+    * Test03 positive swap - dst size is less
+    */
+   sp4 = StackCreate(4);
+   sp5 = StackCreate(2);
+
+   (void)push(sp4,1);
+   (void)push(sp4,2);
+   (void)push(sp4,3);
+   (void)push(sp4,4);
+   printf("\tTest03 - before sp4\n");
+   StackDump(sp4,0);
+
+   (void)push(sp5,5);
+   (void)push(sp5,6);
+   printf("\tTest03 - before sp5\n");
+   StackDump(sp5,0);
+
+   printf("Test03 swap dst size less than src size, but ok 0 = %d\n", swap(sp4,sp5));
+   printf("\tTest03 - after sp4\n");
+   StackDump(sp4,0);
+   printf("\tTest03 - after sp5\n");
+   StackDump(sp5,0);
+#endif
+
+#if 1
+   /*
+    * Test04 positive swap - src size is less than dst, will need to increase src
+    */
+   sp6 = StackCreate(2);  /* src */
+   sp7 = StackCreate(4);  /* dst */
+
+   (void)push(sp6,1);
+   (void)push(sp6,2);
+   printf("\tTest04 - before sp6, size %d\n", size(sp6));
+   StackDump(sp6,0);
+
+   (void)push(sp7,3);
+   (void)push(sp7,4);
+   (void)push(sp7,5);
+   (void)push(sp7,4);
+   printf("\tTest04 - before sp7, size %d\n", size(sp7));
+   StackDump(sp7,0);
+
+   printf("Test04 swap dst size less than src size, but ok 0 = %d\n", swap(sp6,sp7));
+   printf("\tTest04 - after sp6, size %d\n", size(sp6));
+   StackDump(sp6,0);
+   printf("\tTest04 - after sp7, size %d\n", size(sp7));
+   StackDump(sp7,0);
+#endif
+
+   printf("test_swap - Ends\n");
+
+   StackDestroy(sp );
+   StackDestroy(sp1);
+   StackDestroy(sp2);
+   StackDestroy(sp3);
+   StackDestroy(sp4);
+   StackDestroy(sp5);
+
+   return 0;
 }
 
 //
