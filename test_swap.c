@@ -66,7 +66,9 @@ int test_swap ( void )
   stack_t *sp5 = NULL;
   stack_t *sp6 = NULL;
   stack_t *sp7 = NULL;
-
+  stack_t *sp8 = NULL;  
+  stack_t *sp9 = NULL;
+  
   printf("test_swap - create <int> stack\n");
 
   sp = StackCreate(4);
@@ -110,33 +112,7 @@ int test_swap ( void )
   StackDump(sp2,0);
   printf("\tTest02 - after sp3\n");
   StackDump(sp3,0);
-#if 0
-   /*
-    * Test03 positive swap - dst size is less
-    */
-   sp4 = StackCreate(4);
-   sp5 = StackCreate(2);
 
-   (void)push(sp4,1);
-   (void)push(sp4,2);
-   (void)push(sp4,3);
-   (void)push(sp4,4);
-   printf("\tTest03 - before sp4\n");
-   StackDump(sp4,0);
-
-   (void)push(sp5,5);
-   (void)push(sp5,6);
-   printf("\tTest03 - before sp5\n");
-   StackDump(sp5,0);
-
-   printf("Test03 swap dst size less than src size, but ok 0 = %d\n", swap(sp4,sp5));
-   printf("\tTest03 - after sp4\n");
-   StackDump(sp4,0);
-   printf("\tTest03 - after sp5\n");
-   StackDump(sp5,0);
-#endif
-
-#if 1
    /*
     * Test04 positive swap - src size is less than dst, will need to increase src
     */
@@ -160,8 +136,31 @@ int test_swap ( void )
    StackDump(sp6,0);
    printf("\tTest04 - after sp7, size %d\n", size(sp7));
    StackDump(sp7,0);
-#endif
 
+   /*
+    * Test05 positive swap - dst size is less than src, will need to increase dst
+    */
+   sp8 = StackCreate(2);  /* dst */
+   sp9 = StackCreate(4);  /* src */
+
+   (void)push(sp8,101);
+   (void)push(sp8,201);
+   printf("\tTest05 - before dst sp8, size %d\n", size(sp8));
+   StackDump(sp8,0);
+
+   (void)push(sp9,301);
+   (void)push(sp9,401);
+   (void)push(sp9,501);
+   (void)push(sp9,401);
+   printf("\tTest05 - before src sp9, size %d\n", size(sp9));
+   StackDump(sp9,0);
+   
+   printf("Test05 swap dst size less than src size, but ok 0 = %d\n", swap(sp9,sp8));
+   printf("\tTest05 - after dst sp8, size %d\n", size(sp8));
+   StackDump(sp8,0);
+   printf("\tTest05 - after src sp9, size %d\n", size(sp9));
+   StackDump(sp9,0);
+   
    printf("test_swap - Ends\n");
 
    StackDestroy(sp );
@@ -170,6 +169,10 @@ int test_swap ( void )
    StackDestroy(sp3);
    StackDestroy(sp4);
    StackDestroy(sp5);
+   StackDestroy(sp6);
+   StackDestroy(sp7);
+   StackDestroy(sp8);
+   StackDestroy(sp9);
 
    return 0;
 }

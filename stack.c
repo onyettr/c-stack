@@ -190,13 +190,14 @@ printf("swap - stacked has been freed already!\n");
 	  }
   }
 
-  if (srcStack->StackMax < dstStack->StackMax) {                /* We need to reallocate more memory for the source */
+  if (srcStack->StackMax < dstStack->StackMax) {                    /* We need to reallocate more memory for the source */
 	  int *newStack;
-
+          int StackTop;
+	  
 	  newStack = realloc(srcStack->pStack, dstStack->StackMax); /* Add more memory                                  */
 	  srcStack->pStack = newStack;                              /* update to the new stack                          */
 	  srcStack->StackMax = dstStack->StackMax;                  /* update the stack size                            */
-printf("realloc\n");
+printf("realloc src\n");
 
 	  counter = dstStack->StackMax;
 	  for (i=0; i < counter; i++) {
@@ -205,6 +206,30 @@ printf("realloc\n");
 		  srcStack->pStack[i] = dstStack->pStack[i];
 		  dstStack->pStack[i] = tmp;
 	  }
+	  StackTop = dstStack->StackTop;
+	  dstStack->StackTop = srcStack->StackTop;
+	  srcStack->StackTop = StackTop;
+  }
+
+  if (dstStack->StackMax < srcStack->StackMax) {                    /* We need to reallocate more memory for the source */
+	  int *newStack;
+          int StackTop;
+	  
+	  newStack = realloc(dstStack->pStack, srcStack->StackMax); /* Add more memory                                  */
+	  dstStack->pStack = newStack;                              /* update to the new stack                          */
+	  dstStack->StackMax = srcStack->StackMax;                  /* update the stack size                            */
+printf("realloc dst\n");
+
+	  counter = srcStack->StackMax;
+	  for (i=0; i < counter; i++) {
+		  int tmp;
+		  tmp = srcStack->pStack[i];
+		  srcStack->pStack[i] = dstStack->pStack[i];
+		  dstStack->pStack[i] = tmp;
+	  }
+	  StackTop = dstStack->StackTop;
+	  dstStack->StackTop = srcStack->StackTop;
+	  srcStack->StackTop = StackTop;
   }
 
   return 0;
