@@ -8,7 +8,13 @@ Files
   makefil1e             builds everything
   stack.c               stack implementation 
   stack.h               stack header file
-  test01.c              test harness 
+  test_empty.c          test harness for empty
+  test_pop.c            test harness for pop
+  test_push.c           test harness for push
+  test_swap.c           test harness for swap
+  test_top.c            test harness for top
+  test_size.c           test harness for size
+  stack_check.ts        check testing tool script  
   test.h                test harness header
   trap.c                error trap handler
   trap.h                error trap handler header file

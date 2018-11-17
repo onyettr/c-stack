@@ -1,12 +1,12 @@
 * c-stack tasks
 ** TODO add emplace() function which adds a new element to the top of the stack
-** TODO add swap() function which swaps one stack for the other
 ** TODO size() returns number of elements in the stack not the maximum size
 ** TODO ability to store different types?
 ** TODO size_t for Top and StackSize?
 * Issues
 
 * Completed
+** DONE add swap() function which swaps one stack for the other
 ** DONE replace tests with individual ones
 ** DONE add empty()function returns TRUE if empty
 ** DONE add top()  function returns top most element of the stack
