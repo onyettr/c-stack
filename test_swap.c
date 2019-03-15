@@ -58,16 +58,16 @@ Prototypes of all functions contained in this file (in order of occurance)
 
 int test_swap ( void )
 {
-  stack_t *sp = NULL;  
-  stack_t *sp1= NULL;
-  stack_t *sp2 = NULL;
-  stack_t *sp3 = NULL;
-  stack_t *sp4 = NULL;
-  stack_t *sp5 = NULL;
-  stack_t *sp6 = NULL;
-  stack_t *sp7 = NULL;
-  stack_t *sp8 = NULL;  
-  stack_t *sp9 = NULL;
+  Stack_t *sp = NULL;  
+  Stack_t *sp1= NULL;
+  Stack_t *sp2 = NULL;
+  Stack_t *sp3 = NULL;
+  Stack_t *sp4 = NULL;
+  Stack_t *sp5 = NULL;
+  Stack_t *sp6 = NULL;
+  Stack_t *sp7 = NULL;
+  Stack_t *sp8 = NULL;  
+  Stack_t *sp9 = NULL;
   
   printf("test_swap - create <int> stack\n");
 

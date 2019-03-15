@@ -58,8 +58,8 @@ Prototypes of all functions contained in this file (in order of occurance)
 
 int test_empty ( void )
 {
-  stack_t *sp = NULL;
-  stack_t *sp0= NULL;    
+  Stack_t *sp = NULL;
+  Stack_t *sp0= NULL;    
     
   printf("*** test_empty\n");
 

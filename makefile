@@ -61,7 +61,7 @@ TEST_STACK 	     = stack_test.ts
 # clean		Delete object and library files
 #*******************************************************************************
 
-all:	$(OBJECT_DIR) stack.exe libstack.a test_harness
+all:	$(OBJECT_DIR) stack.exe libstack.a test_harness unity_test_harness
 
 lib:	$(LIBS)
 
@@ -96,6 +96,18 @@ $(OBJECT_DIR)/test01.o:	test01.c
 	$(CC) $(CFLAGS) $(DEBUG) test01.c -o $(OBJECT_DIR)/test01.o
 
 #
+# Unity test harness
+#
+unity_test_harness: unitytest.exe
+
+unitytest.exe:	libstack.a $(OBJECT_DIR)/unity.o $(OBJECT_DIR)/unitytest.o
+	$(CC) -o unitytest.exe $(OBJECT_DIR)/unity.o $(OBJECT_DIR)/unitytest.o -static -L. -lstack 
+$(OBJECT_DIR)/unity.o:	unity/unity.c
+	$(CC) $(CFLAGS) -I unity/ unity/unity.c -o $(OBJECT_DIR)/unity.o
+$(OBJECT_DIR)/unitytest.o:	unitytest.c
+	$(CC) $(CFLAGS) -I unity/ unitytest.c -o $(OBJECT_DIR)/unitytest.o
+
+#
 # This is the "check" target: Test harness is in stack_check.ts file and 
 # this is converted by "check" into a C file which is linked to give another
 # executable. 
@@ -123,6 +135,7 @@ splint-it:
 clean:
 	rm -f stack.exe
 	rm -f stack_check.exe
+	rm -f unitytest.exe
 	rm -f $(OBJECT_DIR)/stack.o
 	rm -f libstack.a
 	rm -f $(OBJECT_DIR)/test01.o
@@ -134,6 +147,8 @@ clean:
 	rm -f $(OBJECT_DIR)/test_pop.o
 	rm -f $(OBJECT_DIR)/main.o
 	rm -f $(OBJECT_DIR)/trap.o
+	rm -f $(OBJECT_DIR)/unity.o
+	rm -f $(OBJECT_DIR)/unitytest.o
 	rm -f *.gcno
 	rm -f *.gcda
 	rm -f gmon.out

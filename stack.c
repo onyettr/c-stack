@@ -18,11 +18,11 @@ Includes
 #include "stack.h"
 #include "trap.h"
 
-static bool isFull (stack_t *pStack);
-static bool isEmpty(stack_t *pStack);
+static bool isFull (Stack_t *pStack);
+static bool isEmpty(Stack_t *pStack);
 
 /**
- * @fn         static int isEmpty(stack_t *pStack)
+ * @fn         static int isEmpty(Stack_t *pStack)
  *
  * @param[in]  *pStack stack to test
  *
@@ -32,31 +32,31 @@ static bool isEmpty(stack_t *pStack);
  *
  * @note       none
  */
-static bool isEmpty(stack_t *pStack) {
+static bool isEmpty(Stack_t *pStack) {
   return pStack->StackTop == -1 ? true : false;
 }
 
 /**
- * @fn         static int isFull(stack_t *pStack)
+ * @fn         static int isFull(Stack_t *pStack)
  * @param[in]  *pStack stack to test
  * @brief      tests if stack is full.
  * @return     bool True or False
  * @note       none
  */
-static bool isFull(stack_t *pStack) {
+static bool isFull(Stack_t *pStack) {
   return pStack->StackTop == (pStack->StackMax - 1) ? true : false;
 }
 
 /**
- * @fn         int pop(stack_t *pStack)
+ * @fn         int pop(Stack_t *pStack)
  * @brief      "pop" off the top of the stack. If the stack is empty then we throw an exception and return negative value 
  * @param[in]  *pStack - Stack to pop from
  * @return     int stack value
  * @note       Will throw an exception if no stack is created.
  */
-int pop(stack_t *pStack) {
+int pop(Stack_t *pStack) {
 
-  if ( pStack == (stack_t *)NULL ) {
+  if ( pStack == (Stack_t *)NULL ) {
     Thrower(e_stacknotcreated);
 
     return -1;      
@@ -73,14 +73,14 @@ int pop(stack_t *pStack) {
 
 
 /**
- * @fn            int top(stack_t *pStack) 
+ * @fn            int top(Stack_t *pStack) 
  * @brief         Returns the top of the stack, does not move the
  *                StackPointer
  * @param[in]     *pStack - Stack to peek from
  * @return        int stack_value
  * @note
  */
-int top(stack_t *pStack) {
+int top(Stack_t *pStack) {
   if ( pStack == NULL ) {
     Thrower(e_stacknotcreated);
 
@@ -97,14 +97,14 @@ int top(stack_t *pStack) {
 }
 
 /**
- * @fn         int push(stack_t *pStack, int element)
+ * @fn         int push(Stack_t *pStack, int element)
  * @brief      Push element onto the provided Stack
  * @param[in]  *pStack stack to push into
  * @param[in]  element item to push onto the stack
  * @return     -1 if error, 0 otherwise.
  * @note
  */
-int push(stack_t *pStack, int element) {
+int push(Stack_t *pStack, int element) {
   if ( pStack == NULL ) {
     Thrower(e_stacknotcreated);
 
@@ -123,7 +123,7 @@ int push(stack_t *pStack, int element) {
 }
 
 /**
- * @fn         void swap(stack_t *srcStack, stack_t *dstStack)
+ * @fn         void swap(Stack_t *srcStack, Stack_t *dstStack)
  * @brief      Swap stacks from src -> dst
  * @param[in]  *srcStack source stack
  * @param[in]  *dstStack destination stack
@@ -131,7 +131,7 @@ int push(stack_t *pStack, int element) {
  * @note        If the src < dst || dst < src we can simply copy, if not we
  *              need to reallocated more memory.
  */
-int swap(stack_t *srcStack, stack_t *dstStack) {
+int swap(Stack_t *srcStack, Stack_t *dstStack) {
   int i;
   int counter;
 
@@ -216,15 +216,15 @@ printf("realloc dst\n");
 }
 
 /**
- * @fn         bool empty(stack_t *pStack) 
+ * @fn         bool empty(Stack_t *pStack) 
  * @brief      is the stack empty?
  * @param[in]  *pStack - Stack to pop from
  * @return     bool TRUE, if empty, false otherwise
  * @note       Will throw an exception if no stack is created.
  */
-bool empty(stack_t *pStack) {
+bool empty(Stack_t *pStack) {
 
-  if ( pStack == (stack_t *)NULL ) {
+  if ( pStack == (Stack_t *)NULL ) {
     Thrower(e_stacknotcreated);
 
     return -1;      
@@ -238,13 +238,13 @@ bool empty(stack_t *pStack) {
 }
 
 /**
- * @fn         int size(stack_t *pStack)
+ * @fn         int size(Stack_t *pStack)
  * @brief      return the number of elements on the stack
  * @param[in]  *pStack stack
  * @return     size
  * @note
  */
-int size(stack_t *pStack) {
+int size(Stack_t *pStack) {
   if ( pStack == NULL ) {
     Thrower(e_stacknotcreated);
 
@@ -255,14 +255,14 @@ int size(stack_t *pStack) {
 }
 
 /**
- * @fn         void StackDump (stack_t *pStack, int num) {
+ * @fn         void StackDump (Stack_t *pStack, int num) {
  * @brief      print out stack contents to console. 
  * @param[in]  *pStack stack to test
  * @param[in]  num allows number of elements to be printed. 
  * @return     None
  * @note
  */
-void StackDump (stack_t *pStack, int num) {
+void StackDump (Stack_t *pStack, int num) {
   int i;
   int numtoShow = 0;
 
@@ -294,27 +294,27 @@ void StackDump (stack_t *pStack, int num) {
 }
 
 /**
- * @fn         stack_t *StackCreate(int maxStack)
+ * @fn         Stack_t *StackCreate(int maxStack)
  * @brief      creates a stack of the size specified in maxStack 
  *             using malloc().
  * @param[in]  maxStack - Maximum size of the Stack to create
- * @return     stack_t pointer to the stack_t structure or NULL
+ * @return     Stack_t pointer to the Stack_t structure or NULL
  */
-stack_t *StackCreate(int maxStack) {
+Stack_t *StackCreate(int maxStack) {
 
   /* 
    * Cannot allocate negative size stacks
    */
   if ( maxStack < 0) {
-    return (stack_t *)NULL;
+    return (Stack_t *)NULL;
   }
   
   /*
    * create a stack "head"
    */
-  stack_t *pStackHead = (stack_t *)malloc(sizeof(stack_t));
+  Stack_t *pStackHead = (Stack_t *)malloc(sizeof(Stack_t));
   if ( pStackHead == NULL ) {
-    return (stack_t *)NULL;
+    return (Stack_t *)NULL;
   }
 
   pStackHead->StackMax = maxStack; /* High water mark for the stack */
@@ -329,14 +329,14 @@ stack_t *StackCreate(int maxStack) {
 }
 
 /**
- * @fn         int StackDestroy(stack_t *sp)
+ * @fn         int StackDestroy(Stack_t *sp)
  * @brief      Destroy the created stack 
  * @param[in]  *pStack object to be destroyed
  * @return     -1 if Error, else 0
  */
-int StackDestroy(stack_t *pStack) {
+int StackDestroy(Stack_t *pStack) {
 
-  if ( pStack == (stack_t *)NULL) {
+  if ( pStack == (Stack_t *)NULL) {
     Thrower(e_stacknotcreated);    
 
     return -1;

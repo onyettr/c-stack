@@ -37,7 +37,7 @@ typedef struct stack { /*! stack type                     */
   int StackMax;        /*!< Max size of the created stack */
   int StackTop;        /*!< point at the top of the stack */
   int *pStack;         /*!< actual stack                  */
-} stack_t;
+} Stack_t;
 
 /*
 ******************************************************************************
@@ -52,84 +52,84 @@ Global variables
 */
 
 /** 
- *  @fn         int pop  (stack_t *pStack)
+ *  @fn         int pop  (Stack_t *pStack)
  *  @brief      pop an element from the stack pointed to
  *  @param[in]  *pStack - Pointer to the stack
  *  @return     returns (int) element
  */
-int pop  (stack_t *pStack);
+int pop  (Stack_t *pStack);
 
 /**
- *  @fn         int top  (stack_t *pStack)
+ *  @fn         int top  (Stack_t *pStack)
  *  @brief      returns the top of the stack but doesn't pop
  *  @param[in]  *pStack - Pointer to the stack
  *  @return     returns (int) element
  */
-int top  (stack_t *pStack);
+int top  (Stack_t *pStack);
 
 /**
- *  @fn         int push  (stack_t *pStack)
+ *  @fn         int push  (Stack_t *pStack)
  *  @brief      pushes an element onto the stack pointed to
  *  @param[in]  *pStack - Pointer to the stack
  *  @param[in]  element to be pushed
  *  @return     -1 if error, 0 otherwise
  */
-int push(stack_t *pStack, int element);
+int push(Stack_t *pStack, int element);
 
 /**
- * @fn         bool empty(stack_t *pStack) 
+ * @fn         bool empty(Stack_t *pStack) 
  * @brief      is the stack empty?
  * @param[in]  *pStack - Stack to pop from
  * @return     bool TRUE, if empty, false otherwise
  * @note       Will throw an exception if no stack is created.
  */
-bool empty(stack_t *pStack);
+bool empty(Stack_t *pStack);
 
 /**
- * @fn         int size(stack_t *pStack)
+ * @fn         int size(Stack_t *pStack)
  * @brief      return the number of elements on the stack
  * @param[in]  *pStack stack
  * @return     size
  * @note
  */
-int size(stack_t *pStack);
+int size(Stack_t *pStack);
 
 /**
- * @fn         int swap(stack_t *srcStack, stack_t *dstStack)
+ * @fn         int swap(Stack_t *srcStack, Stack_t *dstStack)
  * @brief      Swap stacks from src -> dst
  * @param[in]  *srcStack source stack
  * @param[in]  *dstStack destination stack
  * @return     -1 if error, 0 otherwise.
  * @note
  */
-int swap(stack_t *srcStack, stack_t *dstStack);
+int swap(Stack_t *srcStack, Stack_t *dstStack);
 
 /**
- * @fn         stack_t *StackCreate(int maxStack)
+ * @fn         Stack_t *StackCreate(int maxStack)
  * @brief      creates a stack of the size specified in maxStack 
  *             using malloc().
  * @param[in]  maxStack - Maximum size of the Stack to create
- * @return     stack_t pointer to the stack_t structure or NULL
+ * @return     Stack_t pointer to the Stack_t structure or NULL
  */
-stack_t *StackCreate(int maxStack);
+Stack_t *StackCreate(int maxStack);
 
 /**
- * @fn         int StackDestroy(stack_t *pStack)
+ * @fn         int StackDestroy(Stack_t *pStack)
  * @brief      Destroy the created stack 
  * @param[in]  *pStack object to be destroyed
  * @return     -1 if Error, else 0
  */
-int  StackDestroy( stack_t *pStack );
+int  StackDestroy( Stack_t *pStack );
 
 /**
- * @fn         void StackDump (stack_t *pStack, int num) {
+ * @fn         void StackDump (Stack_t *pStack, int num) {
  * @brief      print out stack contents to console. 
  * @param[in]  *pStack stack to test
  * @param[in]  num allows number of elements to be printed. 
  * @return     None
  * @note
  */
-void StackDump (stack_t *pStack, int num);
+void StackDump (Stack_t *pStack, int num);
 
 #endif // __STACK_H__
 

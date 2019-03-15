@@ -58,10 +58,10 @@ Prototypes of all functions contained in this file (in order of occurance)
 
 int test_size ( void )
 {
-  stack_t *sp = NULL;
-  stack_t *sp0= NULL;    
-  stack_t *sp1= NULL;  
-  stack_t *sp2= NULL;
+  Stack_t *sp = NULL;
+  Stack_t *sp0= NULL;    
+  Stack_t *sp1= NULL;  
+  Stack_t *sp2= NULL;
   
   printf("*** test_size\n");
 
