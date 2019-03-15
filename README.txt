@@ -20,7 +20,7 @@ Files
   trap.h                error trap handler header file
 
 Build
-  Simple type make
+  make
 
 ToDo
   1) Convert to a standalone library - DONE
