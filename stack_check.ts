@@ -44,7 +44,7 @@
    
 #test pop_negative_no_stack
    Stack_t *sp = (Stack_t*)NULL;
-   push(sp, 101);
+//   push(sp, 101);
 
    fail_unless(pop(sp) == -1, "pop no stack failed");   
 
