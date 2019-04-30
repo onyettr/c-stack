@@ -36,18 +36,20 @@ void runTest(UnityTestFunction test) {
     test();
   }
 }
+
+#if 1
 void setUp(void) {
 }
 
 void tearDown(void) {
 }
+#endif
 
 int main ( void ) {
-  UnityBegin("stack.c");
+  UNITY_BEGIN();
 
   RUN_TEST(stack_create_invalid_size, __LINE__);
   RUN_TEST(stack_create_valid_size,   __LINE__);
-  UnityEnd();
 
-  return 0;
+  return UNITY_END();
 }
