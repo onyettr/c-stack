@@ -29,13 +29,44 @@ Private Types
 */
 
 /**
+ * @enum  StackType_t
+ * @brief Various types allowed for the stack 
+ */
+typedef enum StackType {
+  stack_char,
+  stack_int,
+  stack_long,
+  stack_float,
+  stack_double,
+  stack_string,
+  stack_pointer
+} StackType_t;
+
+/**
+ * @struct stackElement_t
+ * @brief  Element for the stack
+ */
+typedef struct StackElement {
+  union {
+    char   char_value;
+    int    int_value;
+    long   long_value;
+    float  float_value;
+    double double_value;
+    void   *ptr_value;
+  } StackData_t;
+} StackElement_t;
+  
+/**
  * @struct stack
  * @brief  Data structure to hold the details about the stack.
  * TODO Make stack object other than Integer.
  */
 typedef struct stack { /*! stack type                     */
-  int StackMax;        /*!< Max size of the created stack */
-  int StackTop;        /*!< point at the top of the stack */
+  size_t StackMax;     /*!< Max size of the created stack */
+  size_t StackTop;     /*!< point at the top of the stack */
+  StackType_t Type;    /*!< Variable type for stack       */
+  StackElement_t *pElement; /*!< Actual stack             */
   int *pStack;         /*!< actual stack                  */
 } Stack_t;
 
@@ -109,9 +140,10 @@ int swap(Stack_t *srcStack, Stack_t *dstStack);
  * @brief      creates a stack of the size specified in maxStack 
  *             using malloc().
  * @param[in]  maxStack - Maximum size of the Stack to create
+ * @param[in]  type - what object type is stored in the Stack
  * @return     Stack_t pointer to the Stack_t structure or NULL
  */
-Stack_t *StackCreate(int maxStack);
+Stack_t *StackCreate(size_t maxStack, const StackType_t type);
 
 /**
  * @fn         int StackDestroy(Stack_t *pStack)

@@ -23,13 +23,9 @@ static bool isEmpty(Stack_t *pStack);
 
 /**
  * @fn         static int isEmpty(Stack_t *pStack)
- *
  * @param[in]  *pStack stack to test
- *
  * @brief      tests if stack is empty.
- *
  * @return     bool True or False
- *
  * @note       none
  */
 static bool isEmpty(Stack_t *pStack) {
@@ -49,7 +45,8 @@ static bool isFull(Stack_t *pStack) {
 
 /**
  * @fn         int pop(Stack_t *pStack)
- * @brief      "pop" off the top of the stack. If the stack is empty then we throw an exception and return negative value 
+ * @brief      "pop" off the top of the stack. If the stack is empty then we throw an 
+ *             exception and return negative value 
  * @param[in]  *pStack - Stack to pop from
  * @return     int stack value
  * @note       Will throw an exception if no stack is created.
@@ -70,7 +67,6 @@ int pop(Stack_t *pStack) {
 
   return pStack->pStack[pStack->StackTop--];
 }
-
 
 /**
  * @fn            int top(Stack_t *pStack) 
@@ -155,40 +151,40 @@ printf("swap - stacked has been freed already!\n");
    * If not we can simply copy from one to the other
    */
   if (srcStack->StackMax == dstStack->StackMax) {
-	  if (srcStack->StackMax <= dstStack->StackMax ) {
-		  counter = srcStack->StackMax;
-	  }
-	  if (dstStack->StackMax <= srcStack->StackMax ) {
-	  		  counter = dstStack->StackMax;
-	  }
+    if (srcStack->StackMax <= dstStack->StackMax ) {
+      counter = srcStack->StackMax;
+    }
+    if (dstStack->StackMax <= srcStack->StackMax ) {
+      counter = dstStack->StackMax;
+    }
 
-	  for (i=0; i < counter; i++) {
-		  int tmp;
-		  tmp = srcStack->pStack[i];
-		  srcStack->pStack[i] = dstStack->pStack[i];
-		  dstStack->pStack[i] = tmp;
-	  }
+    for (i=0; i < counter; i++) {
+      int tmp;
+      tmp = srcStack->pStack[i];
+      srcStack->pStack[i] = dstStack->pStack[i];
+      dstStack->pStack[i] = tmp;
+    }
   }
 
-  if (srcStack->StackMax < dstStack->StackMax) {                    /* We need to reallocate more memory for the source */
-	  int *newStack;
-          int StackTop;
-	  
-	  newStack = realloc(srcStack->pStack, dstStack->StackMax); /* Add more memory                                  */
-	  srcStack->pStack = newStack;                              /* update to the new stack                          */
-	  srcStack->StackMax = dstStack->StackMax;                  /* update the stack size                            */
+  if (srcStack->StackMax < dstStack->StackMax) {   /* We need to reallocate more memory for the source */
+    int *newStack;
+    int StackTop;
+
+    newStack = realloc(srcStack->pStack, dstStack->StackMax); /* Add more memory                                  */
+    srcStack->pStack = newStack;                              /* update to the new stack                          */
+    srcStack->StackMax = dstStack->StackMax;                  /* update the stack size                            */
 printf("realloc src\n");
 
-	  counter = dstStack->StackMax;
-	  for (i=0; i < counter; i++) {
-		  int tmp;
-		  tmp = srcStack->pStack[i];
-		  srcStack->pStack[i] = dstStack->pStack[i];
-		  dstStack->pStack[i] = tmp;
-	  }
-	  StackTop = dstStack->StackTop;
-	  dstStack->StackTop = srcStack->StackTop;
-	  srcStack->StackTop = StackTop;
+    counter = dstStack->StackMax;
+    for (i=0; i < counter; i++) {
+      int tmp;
+      tmp = srcStack->pStack[i];
+      srcStack->pStack[i] = dstStack->pStack[i];
+      dstStack->pStack[i] = tmp;
+    }
+    StackTop = dstStack->StackTop;
+    dstStack->StackTop = srcStack->StackTop;
+    srcStack->StackTop = StackTop;
   }
 
   if (dstStack->StackMax < srcStack->StackMax) {                    /* We need to reallocate more memory for the source */
@@ -298,9 +294,10 @@ void StackDump (Stack_t *pStack, int num) {
  * @brief      creates a stack of the size specified in maxStack 
  *             using malloc().
  * @param[in]  maxStack - Maximum size of the Stack to create
+ * @param[in]  type - what object type is stored in the Stack
  * @return     Stack_t pointer to the Stack_t structure or NULL
  */
-Stack_t *StackCreate(int maxStack) {
+Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
 
   /* 
    * Cannot allocate negative size stacks
