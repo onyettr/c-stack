@@ -3,7 +3,6 @@
  * @file   stack.c
  * @brief  C Programming Examples -  Simple Stack implementation
  * @author onyettr
- * @bug    no known bugs
  ***************************************************************************** 
  */
 
@@ -305,7 +304,8 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
   if (maxStack == (size_t)0) {
     return (Stack_t *)NULL;
   }
-  
+
+
   /*
    * create a stack "head"
    */
@@ -313,15 +313,23 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
   if (pStackHead == NULL) {
     return (Stack_t *)NULL;
   }
-
+  printf("StackCreate: StackHead %p\n", (void*)pStackHead);
+  
   pStackHead->StackMax = maxStack; /* High water mark for the stack */
   pStackHead->StackTop = -1;       /* Ready for push                */
-
+  pStackHead->Type     = type;     /* what object type is needed?   */
+  pStackHead->pStack   = NULL;
+  
   /*
    * create the actual stack to push and pull from 
    */
-  pStackHead->pStack   = (int *)malloc(sizeof(int) * maxStack);
-
+  /*  pStackHead->pStack   = (int *)malloc(sizeof(int) * maxStack); */
+  printf("StackCreate: pElement size = %ld\n", sizeof(pStackHead->pElement) * maxStack);
+  
+  //  pStackHead->pStack = malloc(sizeof(*pStackHead->pElement) * maxStack);
+  pStackHead->pElement = malloc(sizeof(*pStackHead->pElement) * maxStack);  
+  printf("StackCreate: pElement %p\n", (void*)pStackHead->pElement);
+  
   return pStackHead;
 }
 
@@ -342,8 +350,10 @@ int StackDestroy(Stack_t *pStack) {
   /*
    * destroy the actual stack to push and pull from 
    */
-  free (pStack->pStack); 
-  pStack->pStack = NULL;
+  free (pStack->pElement);
+  printf("StackDestroy: %p\n", (void*)pStack->pElement);
+  free (pStack);
+  printf("StackDestroy: %p\n", (void*)pStack);  
 
   return 0;
 }

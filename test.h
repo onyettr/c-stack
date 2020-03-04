@@ -21,6 +21,7 @@ int test_swap(void);
 int test_top (void);
 int test_pop (void);
 int test_empty(void);
+int test_create(void);
 
 /*
 ******************************************************************************

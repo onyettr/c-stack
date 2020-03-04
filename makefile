@@ -42,6 +42,7 @@ CODE_CHECK_ARGS	 	= 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
 # libstack library is built from trap handling and the stack implementation. 
 #
 OBJS  		     	=	$(OBJECT_DIR)/main.o 		\
+		       		$(OBJECT_DIR)/test_create.o	\
 		       		$(OBJECT_DIR)/test_empty.o	\
 		       		$(OBJECT_DIR)/test_push.o	\
 		       		$(OBJECT_DIR)/test_size.o	\
@@ -80,6 +81,8 @@ $(OBJECT_DIR)/stack.o:	stack.c
 	$(CC) $(CFLAGS) $(DEBUG) stack.c -o $(OBJECT_DIR)/stack.o
 $(OBJECT_DIR)/trap.o:		trap.c
 	$(CC) $(CFLAGS) $(DEBUG) trap.c -o $(OBJECT_DIR)/trap.o
+$(OBJECT_DIR)/test_create.o:	test_create.c
+	$(CC) $(CFLAGS) $(DEBUG) test_create.c -o $(OBJECT_DIR)/test_create.o
 $(OBJECT_DIR)/test_empty.o:	test_empty.c
 	$(CC) $(CFLAGS) $(DEBUG) test_empty.c -o $(OBJECT_DIR)/test_empty.o
 $(OBJECT_DIR)/test_push.o:	test_push.c
@@ -139,6 +142,7 @@ clean:
 	rm -f $(OBJECT_DIR)/stack.o
 	rm -f libstack.a
 	rm -f $(OBJECT_DIR)/test01.o
+	rm -f $(OBJECT_DIR)/test_create.o
 	rm -f $(OBJECT_DIR)/test_empty.o
 	rm -f $(OBJECT_DIR)/test_push.o
 	rm -f $(OBJECT_DIR)/test_size.o
