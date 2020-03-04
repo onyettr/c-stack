@@ -71,8 +71,8 @@ int test_swap ( void )
   
   printf("test_swap - create <int> stack\n");
 
-  sp = StackCreate(4);
-  sp1= StackCreate(4);
+  sp = StackCreate(4, stack_int);
+  sp1= StackCreate(4, stack_int);
   
   (void)push(sp,100);
   (void)push(sp,200);
@@ -90,8 +90,8 @@ int test_swap ( void )
   /*
    * Test02 positive swap - same size
    */
-  sp2 = StackCreate(4);
-  sp3 = StackCreate(4);
+  sp2 = StackCreate(4, stack_int);
+  sp3 = StackCreate(4, stack_int);
 
   (void)push(sp2,1);
   (void)push(sp2,2);
@@ -116,8 +116,8 @@ int test_swap ( void )
    /*
     * Test04 positive swap - src size is less than dst, will need to increase src
     */
-   sp6 = StackCreate(2);  /* src */
-   sp7 = StackCreate(4);  /* dst */
+   sp6 = StackCreate(2, stack_int);  /* src */
+   sp7 = StackCreate(4, stack_int);  /* dst */
 
    (void)push(sp6,1);
    (void)push(sp6,2);
@@ -140,8 +140,8 @@ int test_swap ( void )
    /*
     * Test05 positive swap - dst size is less than src, will need to increase dst
     */
-   sp8 = StackCreate(2);  /* dst */
-   sp9 = StackCreate(4);  /* src */
+   sp8 = StackCreate(2, stack_int);  /* dst */
+   sp9 = StackCreate(4, stack_int);  /* src */
 
    (void)push(sp8,101);
    (void)push(sp8,201);

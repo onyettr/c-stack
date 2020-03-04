@@ -302,7 +302,7 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
   /* 
    * Cannot allocate negative size stacks
    */
-  if ( maxStack < 0) {
+  if (maxStack == (size_t)0) {
     return (Stack_t *)NULL;
   }
   
@@ -310,7 +310,7 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
    * create a stack "head"
    */
   Stack_t *pStackHead = (Stack_t *)malloc(sizeof(Stack_t));
-  if ( pStackHead == NULL ) {
+  if (pStackHead == NULL) {
     return (Stack_t *)NULL;
   }
 

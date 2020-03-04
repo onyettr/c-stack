@@ -6,13 +6,13 @@
 
 SRC_DIR			= 	.
 OBJECT_DIR		= 	$(SRC_DIR)/object
-MAKE_DIR_CMD	= 	mkdir $(OBJECT_DIR)
+MAKE_DIR_CMD		= 	mkdir $(OBJECT_DIR)
 
 CC  			= 	gcc
 LINK  			= 	gcc
-AR				= 	ar
+AR			= 	ar
 CHK   			= 	checkmk
-CHECK_FOR_CHK	:= 	$(shell command -v $(CHK) 2> /dev/null)
+CHECK_FOR_CHK		:= 	$(shell command -v $(CHK) 2> /dev/null)
 
 #*******************************************************************************
 # Build options
@@ -34,14 +34,14 @@ LFLAGS			= 	$(PFLAGS) -static -L.
 #
 # Code checking with splint
 #
-CODE_CHECK       = 	splint
-CODE_CHECK_ARGS	 = 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
+CODE_CHECK       	= 	splint
+CODE_CHECK_ARGS	 	= 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
 
 #
 # Libs, objs targets
 # libstack library is built from trap handling and the stack implementation. 
 #
-OBJS  		     =	$(OBJECT_DIR)/main.o 		\
+OBJS  		     	=	$(OBJECT_DIR)/main.o 		\
 		       		$(OBJECT_DIR)/test_empty.o	\
 		       		$(OBJECT_DIR)/test_push.o	\
 		       		$(OBJECT_DIR)/test_size.o	\
@@ -49,9 +49,9 @@ OBJS  		     =	$(OBJECT_DIR)/main.o 		\
 		       		$(OBJECT_DIR)/test_pop.o	\
 		       		$(OBJECT_DIR)/test_top.o	
 
-LIBS  		     = libstack.a
+LIBS  		     	= 	libstack.a
 
-TEST_STACK 	     = stack_test.ts
+TEST_STACK 	     	= 	stack_test.ts
 
 #*******************************************************************************
 # Build targets:
@@ -101,7 +101,7 @@ $(OBJECT_DIR)/test01.o:	test01.c
 unity_test_harness: unitytest.exe
 
 unitytest.exe:	libstack.a $(OBJECT_DIR)/unity.o $(OBJECT_DIR)/unitytest.o
-	$(CC) -o unitytest.exe $(OBJECT_DIR)/unity.o $(OBJECT_DIR)/unitytest.o -static -L. -lstack 
+	$(CC) -o unitytest.exe $(OBJECT_DIR)/unity.o $(OBJECT_DIR)/unitytest.o -static -L. -lstack  -lpthread
 $(OBJECT_DIR)/unity.o:	unity/unity.c
 	$(CC) $(CFLAGS) -I unity/ unity/unity.c -o $(OBJECT_DIR)/unity.o
 $(OBJECT_DIR)/unitytest.o:	unitytest.c

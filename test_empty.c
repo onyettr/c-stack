@@ -63,7 +63,7 @@ int test_empty ( void )
     
   printf("*** test_empty\n");
 
-  sp = StackCreate(5);
+  sp = StackCreate(5, stack_int);
 
   (void)push(sp,400);
   (void)push(sp,500);
@@ -72,7 +72,7 @@ int test_empty ( void )
 
   printf("\ttest_empty  false = %s not empty\n", empty(sp) == true ? "true" : "false");
 
-  sp0 = StackCreate(5);  
+  sp0 = StackCreate(5, stack_int);  
   printf("\ttest_empty  true  = %s empty\n", empty(sp0) == true ? "true" : "false");  
 
   (void)StackDestroy(sp);

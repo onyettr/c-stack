@@ -63,7 +63,7 @@ int test_pop ( void )
   
   printf("*** test_pop - stack\n");
 
-  sp = StackCreate(5);
+  sp = StackCreate(5, stack_int);
 
   (void)push(sp,400);
   (void)push(sp,500);
@@ -78,7 +78,7 @@ int test_pop ( void )
   printf("\tTest02 creation with null stack\n");
   printf("\tTest02 return -1 %d\n", pop(sp0));
 
-  sp0 = StackCreate(5);  
+  sp0 = StackCreate(5, stack_int);  
   printf("\tTest03 creation with empty stack\n");
   printf("\tTest03 return -1 %d\n", pop(sp0));
   

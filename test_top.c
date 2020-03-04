@@ -63,7 +63,7 @@ int test_top ( void )
   
   printf("*** test_top\n");
 
-  sp = StackCreate(4);
+  sp = StackCreate(4, stack_int);
 
   (void)push(sp,100);
   (void)push(sp,200);
@@ -75,7 +75,7 @@ int test_top ( void )
 
   printf("\tTest02 return  -1 %d  NULL stack\n", top(NULL));  
 
-  sp1 = StackCreate(4);  
+  sp1 = StackCreate(4, stack_int);  
   printf("\tTest02 return  -1 %d  Empty Stack\n", top(sp1));  
 
   (void)StackDestroy(sp);

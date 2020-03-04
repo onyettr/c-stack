@@ -21,16 +21,16 @@ Includes
  * test stack creation
  */
 void stack_create_invalid_size(void) {
-  Stack_t *sp;
+  Stack_t *sp = (Stack_t *)NULL;
 
-  sp = StackCreate(-1);
+  sp = StackCreate(0, stack_int);
   TEST_ASSERT_MESSAGE(sp == NULL, "Stack returned NULL");
 }
 
 void stack_create_valid_size(void) {
   Stack_t *sp;
 
-  sp = StackCreate(10);
+  sp = StackCreate(10, stack_int);
   TEST_ASSERT_MESSAGE(sp != NULL, "Stack created ok");
 }
 
@@ -42,7 +42,7 @@ void stack_push_no_stack(void) {
 
 void stack_push_stack(void) {
    Stack_t *sp = (Stack_t*)NULL;
-   sp = StackCreate(4);
+   sp = StackCreate(4, stack_int);
 
    TEST_ASSERT_MESSAGE(push(sp,101) == 0, "push with stack");
 }
@@ -50,7 +50,7 @@ void stack_push_stack(void) {
 void stack_push_stack_beyond_limit(void) {
    Stack_t *sp = (Stack_t*)NULL;
 
-   sp = StackCreate(2);
+   sp = StackCreate(2, stack_int);
 
    TEST_ASSERT_MESSAGE(push(sp,101) ==  0, "push fail");   
    TEST_ASSERT_MESSAGE(push(sp,102) ==  0, "push fail");
@@ -66,7 +66,7 @@ void stack_pop_no_stack(void) {
 void stack_pop_stack(void) {
    Stack_t *sp = (Stack_t*)NULL;
 
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
    
    push(sp, 101);
 
@@ -75,7 +75,8 @@ void stack_pop_stack(void) {
 
 void stack_top_with_stack(void) {
    Stack_t *sp;
-   sp = StackCreate(5);
+
+   sp = StackCreate(5, stack_int);
    push(sp, 101);
 
    TEST_ASSERT_MESSAGE(top(sp) != -1, "top with stack failed");   
@@ -83,7 +84,8 @@ void stack_top_with_stack(void) {
 
 void stack_top_null_stack(void) {
    Stack_t *sp = NULL;
-   sp = StackCreate(5);
+
+   sp = StackCreate(5, stack_int);
 
    TEST_ASSERT_MESSAGE(top(sp) == -1, "top with empty stack failed");   
 }
@@ -96,7 +98,8 @@ void stack_top_empty_stack(void) {
 
 void stack_empty_not_empty_stack(void) {
    Stack_t *sp = NULL;
-   sp = StackCreate(5);
+
+   sp = StackCreate(5, stack_int);
 
    (void)push(sp,400);
    (void)push(sp,500);
@@ -109,7 +112,7 @@ void stack_empty_not_empty_stack(void) {
 void stack_empty_empty_stack(void) {
    Stack_t *sp = NULL;
 
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
    TEST_ASSERT_MESSAGE(empty(sp) == 1, "empty with empty stack");   
 }
 

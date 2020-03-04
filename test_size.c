@@ -65,7 +65,7 @@ int test_size ( void )
   
   printf("*** test_size\n");
 
-  sp = StackCreate(5);
+  sp = StackCreate(5, stack_int);
 
   (void)push(sp,400);
   (void)push(sp,500);
@@ -83,10 +83,10 @@ int test_size ( void )
 
   printf("\ttest_size:  %d after pop #5 %d StackUnderFlowExcep\n", pop(sp), size(sp));
 
-  sp0 = StackCreate(5);
+  sp0 = StackCreate(5, stack_int);
   printf("\ttest_size   %d = 0 No Elements\n", size(sp0));
   
-  sp1 = StackCreate(5);
+  sp1 = StackCreate(5, stack_int);
   (void)push(sp1,800);
   printf("\ttest_size   %d = 1 One Element\n", size(sp1));
   

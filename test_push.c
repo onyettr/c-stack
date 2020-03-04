@@ -63,7 +63,7 @@ int test_push ( void )
   
   printf("test_push - create <int> stack\n");
 
-  sp = StackCreate(4);
+  sp = StackCreate(4, stack_int);
 
   printf("\tTest01 creation good\n");
   (void)push(sp,100);
