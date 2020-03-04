@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include "stack.h"
 
-#test create_negative
+#test stack_create_bad_size
    Stack_t *sp;
 
-   printf("create_negative\n");
+   printf("stack_create_bad_size\n");
    
-   sp = StackCreate(-1, stack_int);
-   fail_unless(sp == NULL, "negative create failed");   
+   sp = StackCreate(0, stack_int);
+   fail_unless(sp == NULL, "bad size create failed");   
 
-#test create_positive
+#test stack_create_positive
    Stack_t *sp;
 
-   printf("create_positive\n");
+   printf("stack_create_positive\n");
 
    sp = StackCreate(5, stack_int);
    fail_unless(sp != NULL, "positive create failed");   
