@@ -21,17 +21,13 @@ Includes
 
 /**
  * @brief     Exception Handler
- *
  * @fn        void Thrower(stack_exception_t exp)
- *
  * @param[in] exp  - Execption to "throw"
- *
  * @return    none
- *
  * @note      none
  */
 void Thrower(stack_exception_t exp) {
-  printf( "ouch something bad went on = ");
+  printf( ">>ouch something bad went on = ");
   if (exp == e_stackoverflow ) {
     printf ("StackOverFlowExcep");
   } else if (exp == e_stackunderflow) {

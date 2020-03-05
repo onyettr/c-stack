@@ -47,6 +47,7 @@ typedef enum StackType {
  * @brief  Element for the stack
  */
 typedef struct StackElement {
+
   union {
     char   char_value;
     int    int_value;
@@ -54,18 +55,18 @@ typedef struct StackElement {
     float  float_value;
     double double_value;
     void   *ptr_value;
-  } StackData_t;
+  } stackdata;
 } StackElement_t;
   
 /**
  * @struct stack
  * @brief  Data structure to hold the details about the stack.
- * TODO Make stack object other than Integer.
+ * @note   Stack is of one type only
  */
 typedef struct stack { /*! stack type                     */
   size_t StackMax;     /*!< Max size of the created stack */
   size_t StackTop;     /*!< point at the top of the stack */
-  StackType_t Type;    /*!< Variable type for stack       */
+  StackType_t Type;    /*!< Variable type for stack       */    
   StackElement_t *pElement; /*!< Actual stack             */
   int *pStack;         /*!< actual stack                  */
 } Stack_t;
@@ -102,10 +103,9 @@ int top  (Stack_t *pStack);
  *  @fn         int push  (Stack_t *pStack)
  *  @brief      pushes an element onto the stack pointed to
  *  @param[in]  *pStack - Pointer to the stack
- *  @param[in]  element to be pushed
  *  @return     -1 if error, 0 otherwise
  */
-int push(Stack_t *pStack, int element);
+int push(Stack_t *pStack, ...);
 
 /**
  * @fn         bool empty(Stack_t *pStack) 

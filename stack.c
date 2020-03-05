@@ -14,6 +14,7 @@ Includes
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdarg.h>
 #include "stack.h"
 #include "trap.h"
 
@@ -95,25 +96,41 @@ int top(Stack_t *pStack) {
  * @fn         int push(Stack_t *pStack, int element)
  * @brief      Push element onto the provided Stack
  * @param[in]  *pStack stack to push into
- * @param[in]  element item to push onto the stack
  * @return     -1 if error, 0 otherwise.
  * @note
  */
-int push(Stack_t *pStack, int element) {
-  if ( pStack == NULL ) {
-    Thrower(e_stacknotcreated);
+int push(Stack_t *pStack, ...) {
 
+  printf("push pStack %p\n", (void*)pStack);
+
+  if (pStack == NULL) {
+    printf("push - stack is NULL\n");    
+    Thrower(e_stacknotcreated);
+    
     return -1;      
   }
   
   if (isFull(pStack)) {
+    printf("push - stack is full\n");
     Thrower(e_stackoverflow);
     
     return -1;
   }
 
-  pStack->pStack[++pStack->StackTop] = element;
+  va_list vargs;
+  va_start(vargs, (Stack_t*)pStack);
 
+  printf("push: type %d\n", pStack->Type);
+  switch (pStack->Type) {
+     case stack_int:
+       pStack->pElement[++pStack->StackTop].stackdata.int_value = va_arg(vargs, int);
+       break;
+     default:
+       break;
+  }
+  
+  va_end(vargs);
+  
   return 0;
 }
 
@@ -280,7 +297,14 @@ void StackDump (Stack_t *pStack, int num) {
   }
   
   for (i=0; i < numtoShow; i++) {
-    printf("Stack[%4d] = %d", i, pStack->pStack[i] );
+    switch(pStack->Type) {
+        case stack_int:
+          printf("Stack[%4d] = %d", i, pStack->pElement[i].stackdata.int_value);
+          break;
+        default:
+          break;
+    }
+      
     if ( i == pStack->StackTop ) {
       printf("  <--- Stacktop");
     }
@@ -296,7 +320,7 @@ void StackDump (Stack_t *pStack, int num) {
  * @param[in]  type - what object type is stored in the Stack
  * @return     Stack_t pointer to the Stack_t structure or NULL
  */
-Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
+Stack_t *StackCreate(size_t maxStack, const StackType_t Type) {
 
   /* 
    * Cannot allocate negative size stacks
@@ -304,7 +328,6 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
   if (maxStack == (size_t)0) {
     return (Stack_t *)NULL;
   }
-
 
   /*
    * create a stack "head"
@@ -317,7 +340,6 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t type) {
   
   pStackHead->StackMax = maxStack; /* High water mark for the stack */
   pStackHead->StackTop = -1;       /* Ready for push                */
-  pStackHead->Type     = type;     /* what object type is needed?   */
   pStackHead->pStack   = NULL;
   
   /*
