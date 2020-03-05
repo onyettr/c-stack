@@ -66,7 +66,7 @@ int test_create ( void )
   if (sp == NULL) {
     printf("stack to allocate\n");
   } else {
-    printf("stack created at %08p\n", (void *)sp);
+    printf("stack created at %p\n", (void *)sp);
   }
 
   (void)StackDestroy(sp);
