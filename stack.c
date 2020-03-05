@@ -101,17 +101,17 @@ int top(Stack_t *pStack) {
  */
 int push(Stack_t *pStack, ...) {
 
-  printf("push pStack %p\n", (void*)pStack);
+  //  printf("push pStack %p\n", (void*)pStack);
 
   if (pStack == NULL) {
-    printf("push - stack is NULL\n");    
+    //    printf("push - stack is NULL\n");    
     Thrower(e_stacknotcreated);
     
     return -1;      
   }
   
   if (isFull(pStack)) {
-    printf("push - stack is full\n");
+    //    printf("push - stack is full\n");
     Thrower(e_stackoverflow);
     
     return -1;
@@ -120,10 +120,25 @@ int push(Stack_t *pStack, ...) {
   va_list vargs;
   va_start(vargs, (Stack_t*)pStack);
 
-  printf("push: type %d\n", pStack->Type);
+  //  printf("push: type %d\n", pStack->Type);
   switch (pStack->Type) {
      case stack_int:
-       pStack->pElement[++pStack->StackTop].stackdata.int_value = va_arg(vargs, int);
+       pStack->pElement[++pStack->StackTop].stackdata.int_value  = va_arg(vargs, int);
+       break;
+     case stack_long:
+       pStack->pElement[++pStack->StackTop].stackdata.long_value = va_arg(vargs, long);
+       break;
+     case stack_char:
+       pStack->pElement[++pStack->StackTop].stackdata.char_value = (char) va_arg(vargs, int);
+       break;
+     case stack_float:
+       pStack->pElement[++pStack->StackTop].stackdata.float_value= (float) va_arg(vargs, double);
+       break;
+     case stack_double:
+       pStack->pElement[++pStack->StackTop].stackdata.double_value = va_arg(vargs, double);
+       break;
+     case stack_pointer:
+       pStack->pElement[++pStack->StackTop].stackdata.ptr_value = va_arg(vargs, void *);
        break;
      default:
        break;
@@ -277,8 +292,17 @@ int size(Stack_t *pStack) {
 void StackDump (Stack_t *pStack, int num) {
   int i;
   int numtoShow = 0;
-
-  if ( pStack == NULL || pStack->pStack == NULL) {
+  char *TypeStr[] = {
+     "<char>  ",
+     "<int>   ",
+     "<long>  ",
+     "<float> ",
+     "<double>",
+     "<string>",
+     "<pointer>"
+  };
+  
+  if (pStack == NULL || pStack->pElement == NULL) {
     Thrower(e_stacknotcreated);
 
     return;      
@@ -290,22 +314,36 @@ void StackDump (Stack_t *pStack, int num) {
     return;
   }
 
-  if ( num == 0) {
+  if (num == 0) {
     numtoShow = pStack->StackMax;
   } else {
     numtoShow = num;
   }
-  
+
+  printf("******** Stack Type %s, Size = %ld *********\n", TypeStr[pStack->Type], pStack->StackMax);
   for (i=0; i < numtoShow; i++) {
     switch(pStack->Type) {
+        case stack_char:
+          printf("Stack[%4d] = %c", i, pStack->pElement[i].stackdata.char_value);
+	  break;
         case stack_int:
           printf("Stack[%4d] = %d", i, pStack->pElement[i].stackdata.int_value);
           break;
+        case stack_long:
+          printf("Stack[%4d] = %ld", i, pStack->pElement[i].stackdata.long_value);
+          break;
+        case stack_float:
+          printf("Stack[%4d] = %f", i, pStack->pElement[i].stackdata.float_value);
+	  break;
+        case stack_pointer:
+          printf("Stack[%4d] = %p", i, pStack->pElement[i].stackdata.ptr_value);
+	  break;
         default:
+	  printf("StackDump - Unknown object type %d\n", pStack->Type);
           break;
     }
       
-    if ( i == pStack->StackTop ) {
+    if (i == pStack->StackTop) {
       printf("  <--- Stacktop");
     }
     printf("\n");  
@@ -340,6 +378,7 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t Type) {
   
   pStackHead->StackMax = maxStack; /* High water mark for the stack */
   pStackHead->StackTop = -1;       /* Ready for push                */
+  pStackHead->Type     = Type;     /* What object is in the stack   */
   pStackHead->pStack   = NULL;
   
   /*

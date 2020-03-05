@@ -65,23 +65,35 @@ int test_push ( void )
 
   sp = StackCreate(4, stack_int);
 
-  printf("\tTest01 creation good\n");
+  printf("\tTest01 - creation good\n");
   (void)push(sp, 100);
-#if 0  
   (void)push(sp, 200);
   (void)push(sp, 300);
   (void)push(sp, 700);
-#endif
+
   StackDump(sp, 0);
-#if 0
-  printf("\tTest02 push beyond size\n");
+
+  printf("\tTest02 - push beyond size\n");
   printf("\tTest02 return -1 %d\n", push(sp,800));
 
-  printf("\tTest03 creation with null stack\n");
+  printf("\tTest03 - creation with null stack\n");
   printf("\tTest03 return -1 %d\n", push(sp1,800));
-#endif  
+
   (void)StackDestroy(sp);
 
+  printf("test_push - create <char> stack\n");
+
+  sp1 = StackCreate(4, stack_char);
+
+  printf("\tTest04 - creation good\n");
+  (void)push(sp1, 'A');
+  (void)push(sp1, 'B');
+  (void)push(sp1, 'C');
+  (void)push(sp1, 'D');
+
+  StackDump(sp1, 0);
+  (void)StackDestroy(sp1);
+  
   printf("test_push - Ends\n");
 
   return 0;

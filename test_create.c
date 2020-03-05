@@ -69,6 +69,7 @@ int test_create ( void )
     printf("stack created at %p\n", (void *)sp);
   }
 
+  StackDump(sp, 0);
   (void)StackDestroy(sp);
  
   return 0;

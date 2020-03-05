@@ -27,7 +27,7 @@ Includes
  * @note      none
  */
 void Thrower(stack_exception_t exp) {
-  printf( ">>ouch something bad went on = ");
+  printf( ">> ouch something bad went on = ");
   if (exp == e_stackoverflow ) {
     printf ("StackOverFlowExcep");
   } else if (exp == e_stackunderflow) {
