@@ -38,6 +38,12 @@ CODE_CHECK       	= 	splint
 CODE_CHECK_ARGS	 	= 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
 
 #
+# codespell
+CODE_SPELL		= 	codespell
+CODE_SPELL_ARGS		= 	--skip "*.a,*.o,*.exe,./.git"
+CHECK_FOR_CODESPELL	:=	$(shell command -v $(CODE_SPELL) 2> /dev/null)
+
+#
 # Libs, objs targets
 # libstack library is built from trap handling and the stack implementation. 
 #
@@ -62,7 +68,7 @@ TEST_STACK 	     	= 	stack_test.ts
 # clean		Delete object and library files
 #*******************************************************************************
 
-all:	$(OBJECT_DIR) stack.exe libstack.a test_harness unity_test_harness
+all:	$(OBJECT_DIR) stack.exe libstack.a test_harness unity_test_harness spelling-bee
 
 lib:	$(LIBS)
 
@@ -135,24 +141,31 @@ splint-it:
 	$(CODE_CHECK) $(CODE_CHECK_ARGS) test01.c
 	$(CODE_CHECK) $(CODE_CHECK_ARGS) stack.c     
 
+spelling-bee:
+ifndef CHECK_FOR_CODESPELL
+	@echo "** codespell was not found"
+else
+	$(CODE_SPELL) $(CODE_SPELL_ARGS)
+endif
+
 clean:
 	rm -f stack.exe
 	rm -f stack_check.exe
 	rm -f unitytest.exe
-	rm -f $(OBJECT_DIR)/stack.o
 	rm -f libstack.a
-	rm -f $(OBJECT_DIR)/test01.o
 	rm -f $(OBJECT_DIR)/test_create.o
 	rm -f $(OBJECT_DIR)/test_empty.o
+	rm -f $(OBJECT_DIR)/unitytest.o
 	rm -f $(OBJECT_DIR)/test_push.o
 	rm -f $(OBJECT_DIR)/test_size.o
 	rm -f $(OBJECT_DIR)/test_swap.o
 	rm -f $(OBJECT_DIR)/test_top.o
 	rm -f $(OBJECT_DIR)/test_pop.o
+	rm -f $(OBJECT_DIR)/test01.o
+	rm -f $(OBJECT_DIR)/unity.o
+	rm -f $(OBJECT_DIR)/stack.o
 	rm -f $(OBJECT_DIR)/main.o
 	rm -f $(OBJECT_DIR)/trap.o
-	rm -f $(OBJECT_DIR)/unity.o
-	rm -f $(OBJECT_DIR)/unitytest.o
 	rm -f *.gcno
 	rm -f *.gcda
 	rm -f gmon.out
