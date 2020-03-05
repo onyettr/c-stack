@@ -22,7 +22,7 @@ Includes
 /**
  * @brief     Exception Handler
  * @fn        void Thrower(stack_exception_t exp)
- * @param[in] exp  - Execption to "throw"
+ * @param[in] exp  - Exception to "throw"
  * @return    none
  * @note      none
  */
