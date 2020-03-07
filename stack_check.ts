@@ -9,12 +9,20 @@
    sp = StackCreate(0, stack_int);
    fail_unless(sp == NULL, "bad size create failed");   
 
-#test stack_create_positive
+#test stack_create_int_positive
    Stack_t *sp;
 
    printf("stack_create_positive\n");
 
    sp = StackCreate(5, stack_int);
+   fail_unless(sp != NULL, "positive create failed");   
+
+#test stack_create_double_positive
+   Stack_t *sp;
+
+   printf("stack_create_double_positive\n");
+
+   sp = StackCreate(5, stack_double);
    fail_unless(sp != NULL, "positive create failed");   
 
 #test push_negative_no_stack

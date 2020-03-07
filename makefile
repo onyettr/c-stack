@@ -49,6 +49,8 @@ CHECK_FOR_CODESPELL	:=	$(shell command -v $(CODE_SPELL) 2> /dev/null)
 #
 OBJS  		     	=	$(OBJECT_DIR)/main.o 		\
 		       		$(OBJECT_DIR)/test_create.o	\
+				$(OBJECT_DIR)/test_pop_char.o	\
+				$(OBJECT_DIR)/test_pop_int.o	\
 		       		$(OBJECT_DIR)/test_empty.o	\
 		       		$(OBJECT_DIR)/test_push.o	\
 		       		$(OBJECT_DIR)/test_size.o	\
@@ -101,6 +103,10 @@ $(OBJECT_DIR)/test_top.o:	test_top.c
 	$(CC) $(CFLAGS) $(DEBUG) test_top.c -o $(OBJECT_DIR)/test_top.o
 $(OBJECT_DIR)/test_pop.o:	test_pop.c
 	$(CC) $(CFLAGS) $(DEBUG) test_pop.c -o $(OBJECT_DIR)/test_pop.o
+$(OBJECT_DIR)/test_pop_char.o:	test_pop_char.c
+	$(CC) $(CFLAGS) $(DEBUG) test_pop_char.c -o $(OBJECT_DIR)/test_pop_char.o
+$(OBJECT_DIR)/test_pop_int.o:	test_pop_int.c
+	$(CC) $(CFLAGS) $(DEBUG) test_pop_int.c -o $(OBJECT_DIR)/test_pop_int.o
 $(OBJECT_DIR)/test01.o:	test01.c
 	$(CC) $(CFLAGS) $(DEBUG) test01.c -o $(OBJECT_DIR)/test01.o
 

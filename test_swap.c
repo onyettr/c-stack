@@ -137,6 +137,7 @@ int test_swap ( void )
    printf("\tTest04 - after sp7, size %d\n", size(sp7));
    StackDump(sp7,0);
 
+#if 0   
    /*
     * Test05 positive swap - dst size is less than src, will need to increase dst
     */
@@ -160,7 +161,7 @@ int test_swap ( void )
    StackDump(sp8,0);
    printf("\tTest05 - after src sp9, size %d\n", size(sp9));
    StackDump(sp9,0);
-   
+#endif   
    printf("test_swap - Ends\n");
 
    StackDestroy(sp );

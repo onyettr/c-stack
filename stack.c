@@ -48,10 +48,11 @@ static bool isFull(Stack_t *pStack) {
  * @brief      "pop" off the top of the stack. If the stack is empty then we throw an 
  *             exception and return negative value 
  * @param[in]  *pStack - Stack to pop from
- * @return     int stack value
+ * @param[out] *retvalue - data object 
+ * @return     int 
  * @note       Will throw an exception if no stack is created.
  */
-int pop(Stack_t *pStack) {
+int pop(Stack_t *pStack, void *retvalue) {
 
   if ( pStack == (Stack_t *)NULL ) {
     Thrower(e_stacknotcreated);
@@ -65,7 +66,31 @@ int pop(Stack_t *pStack) {
     return -1;
   }
 
-  return pStack->pStack[pStack->StackTop--];
+  switch (pStack->Type) {
+     case stack_int:
+       *((int *) retvalue) = pStack->pElement[pStack->StackTop--].stackdata.int_value;
+       break;
+     case stack_long:
+       *((long *) retvalue) = pStack->pElement[pStack->StackTop--].stackdata.long_value;
+       break;
+     case stack_char:
+       *((char *) retvalue) = pStack->pElement[pStack->StackTop--].stackdata.char_value;
+       break;
+     case stack_float:
+       *((float *) retvalue) = pStack->pElement[pStack->StackTop--].stackdata.float_value;
+       break;
+     case stack_double:
+	 *((double *) retvalue) = pStack->pElement[pStack->StackTop--].stackdata.double_value;
+	 break;
+     case stack_pointer:
+	 *((void**) retvalue) = pStack->pElement[pStack->StackTop--].stackdata.ptr_value;
+	 break;
+     default:
+          printf("pop - unknown object type %d\n", pStack->Type);
+	 break;
+  }
+
+  return 0;
 }
 
 /**
@@ -73,10 +98,11 @@ int pop(Stack_t *pStack) {
  * @brief         Returns the top of the stack, does not move the
  *                StackPointer
  * @param[in]     *pStack - Stack to peek from
+ * @param[out]    *retvalue - data object from stack
  * @return        int stack_value
  * @note
  */
-int top(Stack_t *pStack) {
+int top(Stack_t *pStack, void *retvalue) {
   if ( pStack == NULL ) {
     Thrower(e_stacknotcreated);
 
@@ -88,8 +114,32 @@ int top(Stack_t *pStack) {
     
     return -1;
   }
+  
+  switch (pStack->Type) {
+     case stack_int:
+       *((int *) retvalue) = pStack->pElement[pStack->StackTop].stackdata.int_value;
+       break;
+     case stack_long:
+       *((long *) retvalue) = pStack->pElement[pStack->StackTop].stackdata.long_value;
+       break;
+     case stack_char:
+       *((char *) retvalue) = pStack->pElement[pStack->StackTop].stackdata.char_value;
+       break;
+     case stack_float:
+       *((float *) retvalue) = pStack->pElement[pStack->StackTop].stackdata.float_value;
+       break;
+     case stack_double:
+	 *((double *) retvalue) = pStack->pElement[pStack->StackTop].stackdata.double_value;
+	 break;
+     case stack_pointer:
+	 *((void**) retvalue) = pStack->pElement[pStack->StackTop].stackdata.ptr_value;
+	 break;
+     default:
+          printf("top - unknown object type %d\n", pStack->Type);
+	 break;
+  }
 
-  return pStack->pStack[pStack->StackTop];  
+  return 0;
 }
 
 /**
@@ -161,7 +211,10 @@ int push(Stack_t *pStack, ...) {
 int swap(Stack_t *srcStack, Stack_t *dstStack) {
   int i;
   int counter;
+  Stack_t *pStack;
 
+  pStack = srcStack;
+  
   /*
    * TODO: If one is NULL we should simply allocate a new stack
    */
@@ -173,7 +226,7 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
 
   if (srcStack->pStack == NULL || dstStack->pStack == NULL) {
 	  Thrower(e_stacknotcreated);
-printf("swap - stacked has been freed already!\n");
+	  printf("swap - stacked has been freed already!\n");
 	  return -1;
   }
 
@@ -190,13 +243,60 @@ printf("swap - stacked has been freed already!\n");
     }
 
     for (i=0; i < counter; i++) {
-      int tmp;
-      tmp = srcStack->pStack[i];
-      srcStack->pStack[i] = dstStack->pStack[i];
-      dstStack->pStack[i] = tmp;
+      int i_tmp;
+      char c_tmp;
+      long l_tmp;
+      float f_tmp;
+      double d_tmp;
+      void *p_tmp;
+      
+      switch (pStack->Type) {
+         case stack_int:
+
+	   i_tmp = pStack->pElement[i].stackdata.int_value;
+	   srcStack->pElement[i].stackdata.int_value = dstStack->pElement[i].stackdata.int_value;
+	   dstStack->pElement[i].stackdata.int_value = i_tmp;
+	   break;
+         case stack_char:
+
+	   c_tmp = pStack->pElement[i].stackdata.char_value;
+	   srcStack->pElement[i].stackdata.char_value = dstStack->pElement[i].stackdata.char_value;
+	   dstStack->pElement[i].stackdata.char_value = c_tmp;
+	   break;
+         case stack_long:
+
+	   l_tmp = pStack->pElement[i].stackdata.long_value;
+	   srcStack->pElement[i].stackdata.long_value = dstStack->pElement[i].stackdata.long_value;
+	   dstStack->pElement[i].stackdata.long_value = l_tmp;
+	   break;
+         case stack_float:
+
+	   f_tmp = pStack->pElement[i].stackdata.float_value;
+	   srcStack->pElement[i].stackdata.float_value = dstStack->pElement[i].stackdata.float_value;
+	   dstStack->pElement[i].stackdata.float_value = f_tmp;
+
+	   break;
+         case stack_double:
+
+	   d_tmp = pStack->pElement[i].stackdata.double_value;
+	   srcStack->pElement[i].stackdata.double_value = dstStack->pElement[i].stackdata.double_value;
+	   dstStack->pElement[i].stackdata.double_value = d_tmp;
+	   
+	   break;
+         case stack_pointer:
+#if 0
+	   *p_tmp = pStack->pElement[i].stackdata.ptr_value;
+	   srcStack->pElement[i].stackdata.ptr_value = dstStack->pElement[i].stackdata.ptr_value;
+	   dstStack->pElement[i].stackdata.ptr_value = *p_tmp;
+#endif
+	   break;
+         default:
+           printf("unknown object type %d\n", pStack->Type);
+	   break;
+       }
     }
   }
-
+#if 0
   if (srcStack->StackMax < dstStack->StackMax) {   /* We need to reallocate more memory for the source */
     int *newStack;
     int StackTop;
@@ -238,7 +338,7 @@ printf("realloc dst\n");
 	  dstStack->StackTop = srcStack->StackTop;
 	  srcStack->StackTop = StackTop;
   }
-
+#endif
   return 0;
 }
 
@@ -374,7 +474,7 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t Type) {
   if (pStackHead == NULL) {
     return (Stack_t *)NULL;
   }
-  printf("StackCreate: StackHead %p\n", (void*)pStackHead);
+  //  printf("StackCreate: StackHead %p\n", (void*)pStackHead);
   
   pStackHead->StackMax = maxStack; /* High water mark for the stack */
   pStackHead->StackTop = -1;       /* Ready for push                */
@@ -385,11 +485,11 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t Type) {
    * create the actual stack to push and pull from 
    */
   /*  pStackHead->pStack   = (int *)malloc(sizeof(int) * maxStack); */
-  printf("StackCreate: pElement size = %ld\n", sizeof(pStackHead->pElement) * maxStack);
+  //  printf("StackCreate: pElement size = %ld\n", sizeof(pStackHead->pElement) * maxStack);
   
   //  pStackHead->pStack = malloc(sizeof(*pStackHead->pElement) * maxStack);
   pStackHead->pElement = malloc(sizeof(*pStackHead->pElement) * maxStack);  
-  printf("StackCreate: pElement %p\n", (void*)pStackHead->pElement);
+  //  printf("StackCreate: pElement %p\n", (void*)pStackHead->pElement);
   
   return pStackHead;
 }
@@ -412,9 +512,9 @@ int StackDestroy(Stack_t *pStack) {
    * destroy the actual stack to push and pull from 
    */
   free (pStack->pElement);
-  printf("StackDestroy: %p\n", (void*)pStack->pElement);
+  // printf("StackDestroy: %p\n", (void*)pStack->pElement);    
   free (pStack);
-  printf("StackDestroy: %p\n", (void*)pStack);  
+  // printf("StackDestroy: %p\n", (void*)pStack);  
 
   return 0;
 }

@@ -62,6 +62,7 @@ int test_size ( void )
   Stack_t *sp0= NULL;    
   Stack_t *sp1= NULL;  
   Stack_t *sp2= NULL;
+  int retvalue;
   
   printf("*** test_size\n");
 
@@ -76,12 +77,12 @@ int test_size ( void )
 
   printf("\ttest_size   %d = 4\n", size(sp));
 
-  printf("\ttest_size:  %d after pop #1 %d\n", pop(sp), size(sp));
-  printf("\ttest_size:  %d after pop #2 %d\n", pop(sp), size(sp));
-  printf("\ttest_size:  %d after pop #3 %d\n", pop(sp), size(sp));
-  printf("\ttest_size:  %d after pop #4 %d\n", pop(sp), size(sp));
+  printf("\ttest_size:  %d after pop #1 %d\n", pop(sp, &retvalue), size(sp));
+  printf("\ttest_size:  %d after pop #2 %d\n", pop(sp, &retvalue), size(sp));
+  printf("\ttest_size:  %d after pop #3 %d\n", pop(sp, &retvalue), size(sp));
+  printf("\ttest_size:  %d after pop #4 %d\n", pop(sp, &retvalue), size(sp));
 
-  printf("\ttest_size:  %d after pop #5 %d StackUnderFlowExcep\n", pop(sp), size(sp));
+  printf("\ttest_size:  %d after pop #5 %d StackUnderFlowExcep\n", pop(sp, &retvalue), size(sp));
 
   sp0 = StackCreate(5, stack_int);
   printf("\ttest_size   %d = 0 No Elements\n", size(sp0));

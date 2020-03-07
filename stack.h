@@ -89,15 +89,16 @@ Global variables
  *  @param[in]  *pStack - Pointer to the stack
  *  @return     returns (int) element
  */
-int pop  (Stack_t *pStack);
+int pop  (Stack_t *pStack, void *retvalue);
 
 /**
  *  @fn         int top  (Stack_t *pStack)
  *  @brief      returns the top of the stack but doesn't pop
  *  @param[in]  *pStack - Pointer to the stack
+ *  @param[out] *retvalue - data object from stack
  *  @return     returns (int) element
  */
-int top  (Stack_t *pStack);
+int top  (Stack_t *pStack, void *retvalue);
 
 /**
  *  @fn         int push  (Stack_t *pStack)
