@@ -9,27 +9,40 @@
 #include <stdio.h>
 #include "stack.h"
 
-START_TEST(create_negative)
+START_TEST(stack_create_bad_size)
 {
 #line 5
    Stack_t *sp;
 
-   printf("create_negative\n");
+   printf("stack_create_bad_size\n");
    
-   sp = StackCreate(-1);
-   fail_unless(sp == NULL, "negative create failed");   
+   sp = StackCreate(0, stack_int);
+   fail_unless(sp == NULL, "bad size create failed");   
 
 }
 END_TEST
 
-START_TEST(create_positive)
+START_TEST(stack_create_int_positive)
 {
 #line 13
    Stack_t *sp;
 
-   printf("create_positive\n");
+   printf("stack_create_positive\n");
 
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
+   fail_unless(sp != NULL, "positive create failed");   
+
+}
+END_TEST
+
+START_TEST(stack_create_double_positive)
+{
+#line 21
+   Stack_t *sp;
+
+   printf("stack_create_double_positive\n");
+
+   sp = StackCreate(5, stack_double);
    fail_unless(sp != NULL, "positive create failed");   
 
 }
@@ -37,7 +50,7 @@ END_TEST
 
 START_TEST(push_negative_no_stack)
 {
-#line 21
+#line 29
    Stack_t *sp = (Stack_t*)NULL;
 
    printf("push_negative_no_stack\n");
@@ -49,12 +62,12 @@ END_TEST
 
 START_TEST(push_positive_with_stack)
 {
-#line 28
+#line 36
    Stack_t *sp = (Stack_t*)NULL;
 
    printf("push_positive_no_stack\n");
    
-   sp = StackCreate(4);
+   sp = StackCreate(4, stack_int);
    fail_unless(push(sp,101) ==  0, "push with stack failed");   
 
 }
@@ -62,12 +75,12 @@ END_TEST
 
 START_TEST(push_positive_with_stack_beyond_limit)
 {
-#line 36
+#line 44
    Stack_t *sp = (Stack_t*)NULL;
 
    printf("push_positive_with_stack_beyond_limit\n");
    
-   sp = StackCreate(2);
+   sp = StackCreate(2, stack_int);
    fail_unless(push(sp,101) == 0, "push fail");
    fail_unless(push(sp,102) == 0, "push fail");      
    fail_unless(push(sp,103) == -1, "push beyond limit");
@@ -77,9 +90,9 @@ END_TEST
 
 START_TEST(pop_negative_no_stack)
 {
-#line 46
+#line 54
    Stack_t *sp = (Stack_t*)NULL;
-   push(sp, 101);
+//   push(sp, 101);
 
    fail_unless(pop(sp) == -1, "pop no stack failed");   
 
@@ -88,7 +101,7 @@ END_TEST
 
 START_TEST(pop_negative_with_stack_no_push)
 {
-#line 52
+#line 60
    Stack_t *sp = (Stack_t*)NULL;
 
    fail_unless(pop(sp) == -1, "pop no pushes failed");   
@@ -98,9 +111,9 @@ END_TEST
 
 START_TEST(pop_positive_with_stack)
 {
-#line 57
+#line 65
    Stack_t *sp;
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
    push(sp, 101);
 
    fail_unless(pop(sp) == 101, "pop failed");   
@@ -110,9 +123,9 @@ END_TEST
 
 START_TEST(top_positive_with_stack)
 {
-#line 64
+#line 72
    Stack_t *sp;
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
    push(sp, 101);
 
    fail_unless(top(sp) != -1, "top with stack failed");   
@@ -122,9 +135,9 @@ END_TEST
 
 START_TEST(top_negative_null_stack)
 {
-#line 71
+#line 79
    Stack_t *sp = NULL;
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
 
    fail_unless(top(sp) == -1, "top with empty stack failed");   
 
@@ -133,7 +146,7 @@ END_TEST
 
 START_TEST(top_negative_empty_stack)
 {
-#line 77
+#line 85
    Stack_t *sp = NULL;
 
    fail_unless(top(sp) == -1, "top with no stack failed");   
@@ -143,9 +156,9 @@ END_TEST
 
 START_TEST(empty_postive__not_empty_stack)
 {
-#line 82
+#line 90
    Stack_t *sp = NULL;
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
 
    (void)push(sp,400);
    (void)push(sp,500);
@@ -159,10 +172,10 @@ END_TEST
 
 START_TEST(empty_negatve_empty_stack)
 {
-#line 93
+#line 101
    Stack_t *sp = NULL;
 
-   sp = StackCreate(5);
+   sp = StackCreate(5, stack_int);
    fail_unless(empty(sp) == 1, "empty with empty stack");   
 
 }
@@ -170,7 +183,7 @@ END_TEST
 
 START_TEST(destroy_stack_no_stack)
 {
-#line 99
+#line 107
    Stack_t *sp = NULL;
 
    fail_unless(StackDestroy(sp) == -1, "Destroy failed, no stack created");   
@@ -185,8 +198,9 @@ int main(void)
     int nf;
 
     suite_add_tcase(s1, tc1_1);
-    tcase_add_test(tc1_1, create_negative);
-    tcase_add_test(tc1_1, create_positive);
+    tcase_add_test(tc1_1, stack_create_bad_size);
+    tcase_add_test(tc1_1, stack_create_int_positive);
+    tcase_add_test(tc1_1, stack_create_double_positive);
     tcase_add_test(tc1_1, push_negative_no_stack);
     tcase_add_test(tc1_1, push_positive_with_stack);
     tcase_add_test(tc1_1, push_positive_with_stack_beyond_limit);
