@@ -218,7 +218,7 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
   /*
    * TODO: If one is NULL we should simply allocate a new stack
    */
-  if ( srcStack == NULL || dstStack == NULL) {
+  if (srcStack == NULL || dstStack == NULL) {
 	  Thrower(e_stacknotcreated);
 
 	  return -1;
@@ -234,7 +234,7 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
    * Do we need to allocate more stack space?
    * If not we can simply copy from one to the other
    */
-  printf("swap src %d dst %d\n", srcStack->StackMax, dstStack->StackMax);
+  //  printf("swap: src %d dst %d\n", srcStack->StackMax, dstStack->StackMax);
   
   if (srcStack->StackMax == dstStack->StackMax) {
     if (srcStack->StackMax <= dstStack->StackMax ) {
@@ -243,7 +243,8 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
     if (dstStack->StackMax <= srcStack->StackMax ) {
       counter = dstStack->StackMax;
     }
-    printf("swap - same\n");
+
+    // printf("swap: stack size are the same\n");
     
     for (i=0; i < counter; i++) {
       int i_tmp;
@@ -307,7 +308,8 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
     newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
     srcStack->pElement = newStack;                              /* update to the new stack                          */
     srcStack->StackMax = dstStack->StackMax;                  /* update the stack size                            */
-printf("realloc src\n");
+
+    // printf("swap: realloc src to size %ld\n", dstStack->StackMax);
 
     counter = dstStack->StackMax;
     for (i=0; i < counter; i++) {
@@ -375,7 +377,8 @@ printf("realloc src\n");
 	  newStack = realloc(dstStack->pElement, srcStack->StackMax); /* Add more memory                                  */
 	  dstStack->pElement = newStack;                              /* update to the new stack                          */
 	  dstStack->StackMax = srcStack->StackMax;                  /* update the stack size                            */
-printf("realloc dst\n");
+
+	  // printf("swap: realloc src to size %ld\n", srcStack->StackMax);
 
 	  counter = srcStack->StackMax;
 	  for (i=0; i < counter; i++) {
@@ -564,7 +567,7 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t Type) {
   if (pStackHead == NULL) {
     return (Stack_t *)NULL;
   }
-  printf("StackCreate: StackHead %p\n", (void*)pStackHead);
+  //  printf("StackCreate: StackHead %p\n", (void*)pStackHead);
   
   pStackHead->StackMax = maxStack; /* High water mark for the stack */
   pStackHead->StackTop = -1;       /* Ready for push                */
@@ -575,11 +578,11 @@ Stack_t *StackCreate(size_t maxStack, const StackType_t Type) {
    * create the actual stack to push and pull from 
    */
   /*  pStackHead->pStack   = (int *)malloc(sizeof(int) * maxStack); */
-  //  printf("StackCreate: pElement size = %ld\n", sizeof(pStackHead->pElement) * maxStack);
+  // printf("StackCreate: size request = %ld, actual size = %ld\n", maxStack, sizeof(pStackHead->pElement) * maxStack);
   
   //  pStackHead->pStack = malloc(sizeof(*pStackHead->pElement) * maxStack);
   pStackHead->pElement = malloc(sizeof(*pStackHead->pElement) * maxStack);  
-  printf("StackCreate: pElement %p\n", (void*)pStackHead->pElement);
+  // printf("StackCreate: pElement %p\n", (void*)pStackHead->pElement);
   
   return pStackHead;
 }
@@ -602,9 +605,9 @@ int StackDestroy(Stack_t *pStack) {
    * destroy the actual stack to push and pull from 
    */
   free (pStack->pElement);
-  printf("StackDestroy: %p\n", (void*)pStack->pElement);    
+  //  printf("StackDestroy: %p\n", (void*)pStack->pElement);    
   free (pStack);
-  printf("StackDestroy: %p\n", (void*)pStack);  
-
+  // printf("StackDestroy: %p\n", (void*)pStack);  
+  
   return 0;
 }

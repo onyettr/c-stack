@@ -59,41 +59,54 @@ void stack_push_stack_beyond_limit(void) {
 
 void stack_pop_no_stack(void) {
    Stack_t *sp = (Stack_t*)NULL;
-
-   TEST_ASSERT_MESSAGE(pop(sp) == -1, "pop with no stack");
+   int ret;
+   
+   TEST_ASSERT_MESSAGE(pop(sp, &ret) == -1, "pop with no stack");
 }
 
 void stack_pop_stack(void) {
    Stack_t *sp = (Stack_t*)NULL;
-
+   int ret;
+   
    sp = StackCreate(5, stack_int);
    
    push(sp, 101);
-
-   TEST_ASSERT_MESSAGE(pop(sp) == 101, "pop");
+   pop(sp, &ret);
+   TEST_ASSERT_MESSAGE(ret == 101, "pop");
 }
 
 void stack_top_with_stack(void) {
    Stack_t *sp;
-
+   int ret;
+   int Error;
+   
    sp = StackCreate(5, stack_int);
+
    push(sp, 101);
 
-   TEST_ASSERT_MESSAGE(top(sp) != -1, "top with stack failed");   
+   Error = top(sp, &ret);
+   TEST_ASSERT_MESSAGE(Error != -1 , "top with stack failed");
+   TEST_ASSERT_MESSAGE(ret   == 101, "top with stack failed wrong value");      
 }
 
 void stack_top_null_stack(void) {
    Stack_t *sp = NULL;
+   int ret;
+   int Error;
 
    sp = StackCreate(5, stack_int);
+   Error = top(sp, &ret);
 
-   TEST_ASSERT_MESSAGE(top(sp) == -1, "top with empty stack failed");   
+   TEST_ASSERT_MESSAGE(Error == -1, "top with empty stack failed");   
 }
 
 void stack_top_empty_stack(void) {
    Stack_t *sp = NULL;
+   int ret;
+   int Error;
 
-   TEST_ASSERT_MESSAGE(top(sp) == -1, "top with no stack failed");   
+   Error = top(sp, &ret);
+   TEST_ASSERT_MESSAGE(Error == -1, "top with no stack failed");   
 }
 
 void stack_empty_not_empty_stack(void) {

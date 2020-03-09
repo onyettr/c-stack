@@ -60,7 +60,9 @@ int test_top ( void )
 {
   Stack_t *sp = NULL;  
   Stack_t *sp1 = NULL;
+  Stack_t *sp2 = NULL;  
   int retvalue;
+  int Error;
   
   printf("*** test_top\n");
 
@@ -80,8 +82,15 @@ int test_top ( void )
   sp1 = StackCreate(4, stack_int);  
   printf("\tTest02 return  -1 %d  Empty Stack\n", top(sp1, &retvalue));  
 
+  sp2 = StackCreate(4, stack_int);
+  push(sp2, 101);
+  Error = top(sp2, &retvalue);
+  
+  printf ("\tTest03 return %d, Value = %d\n", Error, retvalue);
+  
   (void)StackDestroy(sp);
-  (void)StackDestroy(sp1);  
+  (void)StackDestroy(sp1);
+  (void)StackDestroy(sp2);    
 
   printf("test_top - Ends\n");
 

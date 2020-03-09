@@ -58,8 +58,8 @@ Prototypes of all functions contained in this file (in order of occurrence)
 
 int test_swap ( void )
 {
-  Stack_t *sp = NULL;  
-  Stack_t *sp1= NULL;
+  Stack_t *sp  = NULL;  
+  Stack_t *sp1 = NULL;
   Stack_t *sp2 = NULL;
   Stack_t *sp3 = NULL;
   Stack_t *sp4 = NULL;
@@ -84,7 +84,7 @@ int test_swap ( void )
   (void)push(sp1,301);
   (void)push(sp1,701);
 
-  (void)StackDestroy(sp);
+  //(void)StackDestroy(sp);
   printf("\tTest01 swap - same size, but stack freed -1 = %d\n", swap(sp,sp1));
 
   /*
@@ -112,7 +112,7 @@ int test_swap ( void )
   StackDump(sp2,0);
   printf("\tTest02 - after sp3\n");
   StackDump(sp3,0);
-#if 0   
+
    /*
     * Test04 positive swap - src size is less than dst, will need to increase src
     */
@@ -161,7 +161,7 @@ int test_swap ( void )
    StackDump(sp8,0);
    printf("\tTest05 - after src sp9, size %d\n", size(sp9));
    StackDump(sp9,0);
-#endif   
+
    printf("test_swap - Ends\n");
 
    StackDestroy(sp );
