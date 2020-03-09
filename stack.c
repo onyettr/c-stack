@@ -252,7 +252,7 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
       long l_tmp;
       float f_tmp;
       double d_tmp;
-      void *p_tmp;
+      //      void *p_tmp;
       
       switch (pStack->Type) {
          case stack_int:
@@ -302,13 +302,39 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
   }
 
   if (srcStack->StackMax < dstStack->StackMax) {   /* We need to reallocate more memory for the source */
-    int *newStack;
+    int    *i_newStack;
+    char   *c_newStack;
+    long   *l_newStack;
+    float  *f_newStack;
+    double *d_newStack;
     int StackTop;
 
-    newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
-    srcStack->pElement = newStack;                              /* update to the new stack                          */
-    srcStack->StackMax = dstStack->StackMax;                  /* update the stack size                            */
-
+      switch (pStack->Type) {
+         case stack_int:
+	   i_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = i_newStack;                              /* update to the new stack                          */
+	   break;
+         case stack_char:
+	   c_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = c_newStack;                              /* update to the new stack                          */
+           break;
+         case stack_long:
+	   l_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = l_newStack;                              /* update to the new stack                          */
+           break;
+         case stack_float:
+	   f_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = f_newStack;                              /* update to the new stack                          */
+           break;
+        case stack_double:
+	   d_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = d_newStack;                              /* update to the new stack                          */
+           break;
+        default:
+           printf("unknown object type %d\n", pStack->Type);
+	   break;
+      }
+      srcStack->StackMax = dstStack->StackMax;                      /* update the stack size                            */      
     // printf("swap: realloc src to size %ld\n", dstStack->StackMax);
 
     counter = dstStack->StackMax;
@@ -318,40 +344,33 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
       long l_tmp;
       float f_tmp;
       double d_tmp;
-      void *p_tmp;
+      //      void *p_tmp;
       
       switch (pStack->Type) {
          case stack_int:
-
 	   i_tmp = pStack->pElement[i].stackdata.int_value;
 	   srcStack->pElement[i].stackdata.int_value = dstStack->pElement[i].stackdata.int_value;
 	   dstStack->pElement[i].stackdata.int_value = i_tmp;
 	   break;
          case stack_char:
-
 	   c_tmp = pStack->pElement[i].stackdata.char_value;
 	   srcStack->pElement[i].stackdata.char_value = dstStack->pElement[i].stackdata.char_value;
 	   dstStack->pElement[i].stackdata.char_value = c_tmp;
 	   break;
          case stack_long:
-
 	   l_tmp = pStack->pElement[i].stackdata.long_value;
 	   srcStack->pElement[i].stackdata.long_value = dstStack->pElement[i].stackdata.long_value;
 	   dstStack->pElement[i].stackdata.long_value = l_tmp;
 	   break;
          case stack_float:
-
 	   f_tmp = pStack->pElement[i].stackdata.float_value;
 	   srcStack->pElement[i].stackdata.float_value = dstStack->pElement[i].stackdata.float_value;
 	   dstStack->pElement[i].stackdata.float_value = f_tmp;
-
 	   break;
          case stack_double:
-
 	   d_tmp = pStack->pElement[i].stackdata.double_value;
 	   srcStack->pElement[i].stackdata.double_value = dstStack->pElement[i].stackdata.double_value;
 	   dstStack->pElement[i].stackdata.double_value = d_tmp;
-	   
 	   break;
          case stack_pointer:
 #if 0
@@ -371,12 +390,39 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
   }
 
   if (dstStack->StackMax < srcStack->StackMax) {                    /* We need to reallocate more memory for the source */
-	  int *newStack;
-          int StackTop;
-	  
-	  newStack = realloc(dstStack->pElement, srcStack->StackMax); /* Add more memory                                  */
-	  dstStack->pElement = newStack;                              /* update to the new stack                          */
-	  dstStack->StackMax = srcStack->StackMax;                  /* update the stack size                            */
+    int    *i_newStack;
+    char   *c_newStack;
+    long   *l_newStack;
+    float  *f_newStack;
+    double *d_newStack;
+    int StackTop;
+
+    switch (pStack->Type) {
+         case stack_int:
+	   i_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = i_newStack;                              /* update to the new stack                          */
+	   break;
+         case stack_char:
+	   c_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = c_newStack;                              /* update to the new stack                          */
+           break;
+         case stack_long:
+	   l_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = l_newStack;                              /* update to the new stack                          */
+           break;
+         case stack_float:
+	   f_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = f_newStack;                              /* update to the new stack                          */
+           break;
+        case stack_double:
+	   d_newStack = realloc(srcStack->pElement, dstStack->StackMax); /* Add more memory                                  */
+           srcStack->pElement = d_newStack;                              /* update to the new stack                          */
+           break;
+        default:
+           printf("unknown object type %d\n", pStack->Type);
+	   break;
+      }
+      srcStack->StackMax = dstStack->StackMax;                      /* update the stack size                            */      
 
 	  // printf("swap: realloc src to size %ld\n", srcStack->StackMax);
 
@@ -387,7 +433,7 @@ int swap(Stack_t *srcStack, Stack_t *dstStack) {
 	    long l_tmp;
 	    float f_tmp;
 	    double d_tmp;
-	    void *p_tmp;
+	    //	    void *p_tmp;
 
 	    switch (pStack->Type) {
 	       case stack_int:

@@ -166,14 +166,14 @@ int test_swap ( void )
 
    StackDestroy(sp );
    StackDestroy(sp1);
-   //   StackDestroy(sp2);
-   //   StackDestroy(sp3);
-   //StackDestroy(sp4);
-   //StackDestroy(sp5);
-   //StackDestroy(sp6);
-   //StackDestroy(sp7);
-   //   StackDestroy(sp8);
-   //   StackDestroy(sp9);
+   StackDestroy(sp2);
+   StackDestroy(sp3);
+   StackDestroy(sp4);
+   StackDestroy(sp5);
+   StackDestroy(sp6);
+   StackDestroy(sp7);
+   StackDestroy(sp8);
+   StackDestroy(sp9);
 
    return 0;
 }
