@@ -34,6 +34,42 @@ void stack_create_valid_size(void) {
   TEST_ASSERT_MESSAGE(sp != NULL, "Stack created ok");
 }
 
+void stack_create_object_int(void) {
+  Stack_t *sp;
+  int ret;
+   
+  sp = StackCreate(2, stack_char);
+  push(sp, 101);
+  push(sp, 102);
+  top(sp, &ret);
+   
+  TEST_ASSERT_MESSAGE(ret == 102, "Stack <int> created ok");
+}
+
+void stack_create_object_char(void) {
+   Stack_t *sp = (Stack_t*)NULL;
+   char ret;
+   
+   sp = StackCreate(2, stack_char);
+   push(sp, 'A');
+   push(sp, 'B');
+   top(sp, &ret);
+   
+   TEST_ASSERT_MESSAGE(ret == 'B', "Stack <char> created ok");
+}
+
+void stack_create_object_float(void) {
+   Stack_t *sp = (Stack_t*)NULL;
+   char ret;
+   
+   sp = StackCreate(2, stack_float);
+   push(sp, 1.2);
+   push(sp, 1.3);
+   top(sp, &ret);
+   
+   TEST_ASSERT_MESSAGE(ret == 1.3, "Stack <float> created ok");
+}
+
 void stack_push_no_stack(void) {
    Stack_t *sp = (Stack_t*)NULL;
 
@@ -135,6 +171,62 @@ void stack_destroy_no_stack(void) {
    TEST_ASSERT_MESSAGE(StackDestroy(sp) == -1, "Destroy failed, no stack created");   
 }
 
+void stack_swap_src_size(void) {
+   Stack_t *sp;
+   Stack_t *sp1;
+   int ret;
+   
+   sp  = StackCreate(2, stack_int);
+   sp1 = StackCreate(3, stack_int);
+   
+   (void)push(sp,400);
+   (void)push(sp,500);
+
+   (void)push(sp1,402);
+   (void)push(sp1,502);
+   (void)push(sp1,602);
+
+   //   StackDump(sp,0);
+   swap(sp, sp1);
+   //   StackDump(sp,0);
+   
+   TEST_ASSERT_MESSAGE(size(sp) == 3, "Src size did not change!");   
+   top(sp, &ret);
+   TEST_ASSERT_MESSAGE(ret == 602, "swap did not work!");      
+   
+   top(sp1, &ret);
+   TEST_ASSERT_MESSAGE(ret == 500, "swap did not work!");         
+}
+
+void stack_swap_same_size(void) {
+   Stack_t *sp;
+   Stack_t *sp1;
+   int ret;
+   
+   sp  = StackCreate(4, stack_int);
+   sp1 = StackCreate(4, stack_int);
+   
+   (void)push(sp,400);
+   (void)push(sp,500);
+   (void)push(sp,600);
+   (void)push(sp,700);
+
+   (void)push(sp1,402);
+   (void)push(sp1,502);
+   (void)push(sp1,602);
+   (void)push(sp1,702);
+
+   //   StackDump(sp,0);
+   swap(sp, sp1);
+   //   StackDump(sp,0);
+   
+   top(sp, &ret);
+   TEST_ASSERT_MESSAGE(ret == 702, "swap did not work!");
+   
+   top(sp1, &ret);
+   TEST_ASSERT_MESSAGE(ret == 700, "swap did not work!");   
+}
+
 void runTest(UnityTestFunction test) {
   if(TEST_PROTECT()) {
     test();
@@ -152,6 +244,8 @@ int main ( void ) {
 
   RUN_TEST(stack_create_invalid_size, __LINE__);
   RUN_TEST(stack_create_valid_size,   __LINE__);
+  RUN_TEST(stack_create_object_int,   __LINE__);
+  RUN_TEST(stack_create_object_char,  __LINE__);  
   RUN_TEST(stack_push_no_stack,       __LINE__);
   RUN_TEST(stack_push_stack,          __LINE__);
   RUN_TEST(stack_push_stack_beyond_limit, __LINE__);
@@ -162,7 +256,10 @@ int main ( void ) {
   RUN_TEST(stack_top_empty_stack,     __LINE__);
   RUN_TEST(stack_empty_not_empty_stack, __LINE__);
   RUN_TEST(stack_empty_empty_stack,   __LINE__);        
-
+  RUN_TEST(stack_destroy_no_stack,    __LINE__);
+  RUN_TEST(stack_swap_same_size,      __LINE__);
+  RUN_TEST(stack_swap_src_size,       __LINE__);
+  
   UnityEnd();
 
   return 0;
