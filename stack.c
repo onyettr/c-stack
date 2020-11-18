@@ -135,7 +135,7 @@ int top(Stack_t *pStack, void *retvalue) {
 	 *((void**) retvalue) = pStack->pElement[pStack->StackTop].stackdata.ptr_value;
 	 break;
      default:
-          printf("top - unknown object type %d\n", pStack->Type);
+         printf("top - unknown object type %d\n", pStack->Type);
 	 break;
   }
 
@@ -200,15 +200,15 @@ int push(Stack_t *pStack, ...) {
 }
 
 /**
- * @fn         void swap(Stack_t *srcStack, Stack_t *dstStack)
+ * @fn         void swap (Stack_t *srcStack, Stack_t *dstStack)
  * @brief      Swap stacks from src -> dst
  * @param[in]  *srcStack source stack
  * @param[in]  *dstStack destination stack
  * @return     -1 if error, 0 otherwise.
- * @note        If the src < dst || dst < src we can simply copy, if not we
- *              need to reallocated more memory.
+ * @note       If the src < dst || dst < src we can simply copy, if not we
+ *             need to reallocated more memory.
  */
-int swap(Stack_t *srcStack, Stack_t *dstStack) {
+int swap (Stack_t *srcStack, Stack_t *dstStack) {
   int i;
   int counter;
   Stack_t *pStack;

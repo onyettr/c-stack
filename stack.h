@@ -29,7 +29,7 @@ Private Types
 */
 
 /**
- * @enum  StackType_t
+ * @enum  StackType
  * @brief Various types allowed for the stack 
  */
 typedef enum StackType {
