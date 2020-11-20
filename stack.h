@@ -33,13 +33,13 @@ Private Types
  * @brief Various types allowed for the stack 
  */
 typedef enum StackType {
-  stack_char,
-  stack_int,
-  stack_long,
-  stack_float,
-  stack_double,
-  stack_string,
-  stack_pointer
+  stack_char,            /*!< type char    */
+  stack_int,             /*!< type int     */
+  stack_long,            /*!< type long    */
+  stack_float,           /*!< type float   */
+  stack_double,          /*!< type double  */
+  stack_string,          /*!< type string  */
+  stack_pointer          /*!< type pointer */
 } StackType_t;
 
 /**
@@ -63,12 +63,12 @@ typedef struct StackElement {
  * @brief  Data structure to hold the details about the stack.
  * @note   Stack is of one type only
  */
-typedef struct stack { /*! stack type                     */
-  size_t StackMax;     /*!< Max size of the created stack */
-  size_t StackTop;     /*!< point at the top of the stack */
-  StackType_t Type;    /*!< Variable type for stack       */    
-  StackElement_t *pElement; /*!< Actual stack             */
-  int *pStack;         /*!< actual stack                  */
+typedef struct stack {      /*! stack type                     */
+  size_t StackMax;          /*!< Max size of the created stack */
+  size_t StackTop;          /*!< point at the top of the stack */
+  StackType_t Type;         /*!< Variable type for stack       */
+  StackElement_t *pElement; /*!< Actual stack                  */
+  int *pStack;              /*!< actual stack                  */
 } Stack_t;
 
 /*
