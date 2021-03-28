@@ -4,29 +4,31 @@
 # Author           : ronyett
 #*******************************************************************************
 
-SRC_DIR			= 	.
+SRC_DIR				= 	.
 OBJECT_DIR		= 	$(SRC_DIR)/object
-MAKE_DIR_CMD		= 	mkdir $(OBJECT_DIR)
+MAKE_DIR_CMD	= 	mkdir $(OBJECT_DIR)
 
-CC  			= 	gcc
-LINK  			= 	gcc
-AR			= 	ar
-CHK   			= 	checkmk
-CHECK_FOR_CHK		:= 	$(shell command -v $(CHK) 2> /dev/null)
+#CC  					= 	clang
+#LINK  				= 	clang
+CC  					= 	gcc
+LINK  				= 	gcc
+AR						= 	ar
+CHK   				= 	checkmk
+CHECK_FOR_CHK	:= 	$(shell command -v $(CHK) 2> /dev/null)
 
 #*******************************************************************************
 # Build options
 #*******************************************************************************
 
 # gcov and gprof build options
-COVPFLAGS		= 	-fprofile-arcs -ftest-coverage
-PROFLAGS		= 	-pg
-#PFLAGS			= 	$(COVFLAGS)
+COVPFLAGS			= 	-fprofile-arcs -ftest-coverage
+PROFLAGS			= 	-pg
+#PFLAGS				= 	$(COVFLAGS)
 
 # Main CC and Link build strings
-DEBUG			= 	-g
-CFLAGS			= 	-c -std=c99 -Wall -pedantic $(PFLAGS)
-LFLAGS			= 	$(PFLAGS) -static -L.
+DEBUG					= 	-g
+CFLAGS				= 	-c -std=c99 -Wall -pedantic $(PFLAGS)
+LFLAGS				= 	$(PFLAGS) -static -L.
 
 # -DDEBUG_TRACE	Will turn on deep trace per function
 # -DEXCEPTION	Will use the real exceptions with the 'try' that's in the test harness
@@ -40,25 +42,27 @@ CODE_CHECK_ARGS	 	= 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
 #
 # codespell
 CODE_SPELL		= 	codespell
-CODE_SPELL_ARGS		= 	--skip "*.a,*.o,*.exe,./.git"
+CODE_SPELL_ARGS		= 	\
+	--skip "*.pdf,*.png,*.obj,./latex,./Debug,./.vs,./html,*.a,*.o,*.exe,./.git"
 CHECK_FOR_CODESPELL	:=	$(shell command -v $(CODE_SPELL) 2> /dev/null)
 
 #
 # Libs, objs targets
 # libstack library is built from trap handling and the stack implementation. 
 #
-OBJS  		     	=	$(OBJECT_DIR)/main.o 		\
-		       		$(OBJECT_DIR)/test_create.o	\
-				$(OBJECT_DIR)/test_pop_char.o	\
-				$(OBJECT_DIR)/test_pop_int.o	\
-		       		$(OBJECT_DIR)/test_empty.o	\
-		       		$(OBJECT_DIR)/test_push.o	\
-		       		$(OBJECT_DIR)/test_size.o	\
-		       		$(OBJECT_DIR)/test_swap.o	\
-		       		$(OBJECT_DIR)/test_pop.o	\
-		       		$(OBJECT_DIR)/test_top.o	
+OBJS  =		\
+			$(OBJECT_DIR)/main.o 					\
+		  $(OBJECT_DIR)/test_create.o		\
+			$(OBJECT_DIR)/test_pop_char.o	\
+			$(OBJECT_DIR)/test_pop_int.o	\
+		 	$(OBJECT_DIR)/test_empty.o		\
+		 	$(OBJECT_DIR)/test_push.o			\
+		 	$(OBJECT_DIR)/test_size.o			\
+		 	$(OBJECT_DIR)/test_swap.o			\
+		 	$(OBJECT_DIR)/test_pop.o			\
+		 	$(OBJECT_DIR)/test_top.o
 
-LIBS  		     	= 	libstack.a
+LIBS 		 		     	= 	libstack.a
 
 TEST_STACK 	     	= 	stack_test.ts
 
