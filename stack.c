@@ -493,7 +493,7 @@ bool empty(Stack_t *pStack) {
   if ( pStack == (Stack_t *)NULL ) {
     Thrower(e_stacknotcreated);
 
-    return -1;      
+    return false;
   }
 
   if (isEmpty(pStack)) {
@@ -559,7 +559,7 @@ void StackDump (Stack_t *pStack, int num) {
     numtoShow = num;
   }
 
-  printf("******** Stack Type %s, Size = %ld *********\n", TypeStr[pStack->Type], pStack->StackMax);
+  printf("******** Stack Type %s, Size = %ld *********\n", TypeStr[pStack->Type], (long int)pStack->StackMax);
   for (i=0; i < numtoShow; i++) {
     switch(pStack->Type) {
         case stack_char:
