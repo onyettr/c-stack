@@ -138,15 +138,20 @@ if(SPLINT_EXECUTABLE)
 endif()
 
 #*******************************************************************************
-# Clean target (CMake handles most cleanup automatically)
+# Clean target (optional - can be disabled)
+# CMake handles most cleanup automatically with: cmake --build . --target clean
 # For additional cleanup of coverage/profiling files, use: cmake --build . --target clean-extra
 #*******************************************************************************
 
-add_custom_target(clean-extra
-    COMMAND ${CMAKE_COMMAND} -E remove -f *.gcno *.gcda gmon.out core
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Cleaning extra files (coverage, profiling, core dumps)"
-)
+option(ADD_CLEAN_EXTRA_TARGET "Add custom clean-extra target for coverage/profiling files" ON)
+
+if(ADD_CLEAN_EXTRA_TARGET)
+    add_custom_target(clean-extra
+        COMMAND ${CMAKE_COMMAND} -E remove -f *.gcno *.gcda gmon.out core
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Cleaning extra files (coverage, profiling, core dumps)"
+    )
+endif()
 
 #
 # Fin
