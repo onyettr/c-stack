@@ -163,10 +163,10 @@ endif
 # Code checking target
 #
 splint-it:
-	$(CODE_CHECK) $(CODE_CHECK_ARGS) main.c
-	$(CODE_CHECK) $(CODE_CHECK_ARGS) trap.c   
-	$(CODE_CHECK) $(CODE_CHECK_ARGS) test01.c
-	$(CODE_CHECK) $(CODE_CHECK_ARGS) stack.c     
+	$(CODE_CHECK) $(CODE_CHECK_ARGS) $(SRC_DIR)/main.c
+	$(CODE_CHECK) $(CODE_CHECK_ARGS) $(SRC_DIR)/trap.c   
+#	$(CODE_CHECK) $(CODE_CHECK_ARGS) test01.c
+	$(CODE_CHECK) $(CODE_CHECK_ARGS) $(SRC_DIR)/stack.c     
 
 clean:
 	rm -f stack.exe
