@@ -4,15 +4,18 @@
 # Author           : ronyett
 #*******************************************************************************
 
-SRC_DIR			= 	.
-OBJECT_DIR		= 	$(SRC_DIR)/object
-MAKE_DIR_CMD	= 	mkdir $(OBJECT_DIR)
+SRC_DIR			= ./src
+TEST_DIR        = ./tests
+OBJECT_DIR		= $(SRC_DIR)/object
+INCLUDE_DIR     = -I ./include
+INCLUDE_DIR     += -I ./tests
+MAKE_DIR_CMD	= mkdir $(OBJECT_DIR)
 
-CC  			= 	gcc
-LINK  			= 	gcc
-AR				= 	ar
-CHK   			= 	checkmk
-CHECK_FOR_CHK	:= 	$(shell command -v $(CHK) 2> /dev/null)
+CC  			= gcc
+LINK  			= gcc
+AR				= ar
+CHK   			= checkmk
+CHECK_FOR_CHK	:=	$(shell command -v $(CHK) 2> /dev/null)
 
 #*******************************************************************************
 # Build options
@@ -25,7 +28,14 @@ PROFLAGS		= 	-pg
 
 # Main CC and Link build strings
 DEBUG			= 	-g
-CFLAGS			= 	-c -std=c99 -Wall -pedantic $(PFLAGS)
+
+CFLAGS			+= 	-c 
+CFLAGS          += -std=c99
+CFLAGS          += -Wall -pedantic
+CFLAGS          += $(INCLUDE_DIR)
+CFLAGS          += $(PFLAGS)
+CFLAGS          += $(DEBUG)
+$(info [DBG] CFLAGS = $(CFLAGS))
 LFLAGS			= 	$(PFLAGS) -static -L.
 
 # -DDEBUG_TRACE	Will turn on deep trace per function
@@ -51,7 +61,7 @@ OBJS  		     =	$(OBJECT_DIR)/main.o 		\
 
 LIBS  		     = libstack.a
 
-TEST_STACK 	     = stack_test.ts
+TEST_STACK 	     = $(TEST_DIR)/stack_test.ts
 
 #*******************************************************************************
 # Build targets:
@@ -60,6 +70,28 @@ TEST_STACK 	     = stack_test.ts
 # splint-it	run the Syntax checker
 # clean		Delete object and library files
 #*******************************************************************************
+
+.PHONY: help all lib test_harness unity_test_harness splint-it clean
+
+help:
+	@echo "Stack Library Makefile"
+	@echo "======================"
+	@echo ""
+	@echo "Available targets:"
+	@echo "  all                  - Build everything (default): creates object directory,"
+	@echo "                         builds executables, and runs test harnesses"
+	@echo "  lib                  - Build only the stack library (libstack.a)"
+	@echo "  stack.exe            - Build the main stack executable"
+	@echo "  test_harness         - Build and run Check framework test harness"
+	@echo "  unity_test_harness   - Build Unity test harness (unitytest.exe)"
+	@echo "  splint-it            - Run splint syntax checker on source files"
+	@echo "  clean                - Remove all generated files (objects, libraries, executables)"
+	@echo "  help                 - Display this help message"
+	@echo ""
+	@echo "Build options:"
+	@echo "  PFLAGS=$(COVPFLAGS)  - Enable code coverage profiling"
+	@echo "  PFLAGS=$(PROFLAGS)   - Enable gprof profiling"
+	@echo ""
 
 all:	$(OBJECT_DIR) stack.exe libstack.a test_harness unity_test_harness
 
@@ -74,24 +106,28 @@ libstack.a:	$(OBJECT_DIR)/stack.o $(OBJECT_DIR)/trap.o
 $(OBJECT_DIR):
 	-$(MAKE_DIR_CMD)
 
-$(OBJECT_DIR)/main.o:		main.c
-	$(CC) $(CFLAGS) $(DEBUG) main.c -o $(OBJECT_DIR)/main.o
-$(OBJECT_DIR)/stack.o:	stack.c
-	$(CC) $(CFLAGS) $(DEBUG) stack.c -o $(OBJECT_DIR)/stack.o
-$(OBJECT_DIR)/trap.o:		trap.c
-	$(CC) $(CFLAGS) $(DEBUG) trap.c -o $(OBJECT_DIR)/trap.o
-$(OBJECT_DIR)/test_empty.o:	test_empty.c
-	$(CC) $(CFLAGS) $(DEBUG) test_empty.c -o $(OBJECT_DIR)/test_empty.o
-$(OBJECT_DIR)/test_push.o:	test_push.c
-	$(CC) $(CFLAGS) $(DEBUG) test_push.c -o $(OBJECT_DIR)/test_push.o
-$(OBJECT_DIR)/test_swap.o:	test_swap.c
-	$(CC) $(CFLAGS) $(DEBUG) test_swap.c -o $(OBJECT_DIR)/test_swap.o
-$(OBJECT_DIR)/test_size.o:	test_size.c
-	$(CC) $(CFLAGS) $(DEBUG) test_size.c -o $(OBJECT_DIR)/test_size.o
-$(OBJECT_DIR)/test_top.o:	test_top.c
-	$(CC) $(CFLAGS) $(DEBUG) test_top.c -o $(OBJECT_DIR)/test_top.o
-$(OBJECT_DIR)/test_pop.o:	test_pop.c
-	$(CC) $(CFLAGS) $(DEBUG) test_pop.c -o $(OBJECT_DIR)/test_pop.o
+$(OBJECT_DIR)/main.o:		$(SRC_DIR)/main.c
+	$(CC) $(CFLAGS) $(DEBUG) $(SRC_DIR)/main.c -o $(OBJECT_DIR)/main.o
+	
+# Stack library components
+$(OBJECT_DIR)/stack.o:	$(SRC_DIR)/stack.c
+	$(CC) $(CFLAGS) $(DEBUG) $(SRC_DIR)/stack.c -o $(OBJECT_DIR)/stack.o
+$(OBJECT_DIR)/trap.o:		$(SRC_DIR)/trap.c
+	$(CC) $(CFLAGS) $(DEBUG) $(SRC_DIR)/trap.c -o $(OBJECT_DIR)/trap.o
+
+# Test harness library components
+$(OBJECT_DIR)/test_empty.o:	$(TEST_DIR)/test_empty.c
+	$(CC) $(CFLAGS) $(DEBUG) $(TEST_DIR)/test_empty.c -o $(OBJECT_DIR)/test_empty.o
+$(OBJECT_DIR)/test_push.o:	$(TEST_DIR)/test_push.c
+	$(CC) $(CFLAGS) $(DEBUG) $(TEST_DIR)/test_push.c -o $(OBJECT_DIR)/test_push.o
+$(OBJECT_DIR)/test_swap.o:	$(TEST_DIR)/test_swap.c
+	$(CC) $(CFLAGS) $(DEBUG) $(TEST_DIR)/test_swap.c -o $(OBJECT_DIR)/test_swap.o
+$(OBJECT_DIR)/test_size.o:	$(TEST_DIR)/test_size.c
+	$(CC) $(CFLAGS) $(DEBUG) $(TEST_DIR)/test_size.c -o $(OBJECT_DIR)/test_size.o
+$(OBJECT_DIR)/test_top.o:	$(TEST_DIR)/test_top.c
+	$(CC) $(CFLAGS) $(DEBUG) $(TEST_DIR)/test_top.c -o $(OBJECT_DIR)/test_top.o
+$(OBJECT_DIR)/test_pop.o:	$(TEST_DIR)/test_pop.c
+	$(CC) $(CFLAGS) $(DEBUG) $(TEST_DIR)/test_pop.c -o $(OBJECT_DIR)/test_pop.o
 $(OBJECT_DIR)/test01.o:	test01.c
 	$(CC) $(CFLAGS) $(DEBUG) test01.c -o $(OBJECT_DIR)/test01.o
 
@@ -115,11 +151,11 @@ $(OBJECT_DIR)/unitytest.o:	unitytest.c
 # NOTE: This will not build if you have the Profiling enabled as the libstack.a 
 # contains gcov 
 #
-test_harness: libstack.a stack_check.ts
+test_harness: libstack.a $(TEST_DIR)/stack_check.ts
 ifndef CHECK_FOR_CHK
 	@echo "** checkmk command not found"
 else
-	$(CHK) stack_check.ts > stack_check.c
+	$(CHK) $(TEST_DIR)/stack_check.ts > stack_check.c
 	$(CC) -o stack_check.exe stack_check.c -static -L. -lcheck -lstack 
 endif
 
