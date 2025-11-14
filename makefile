@@ -46,6 +46,7 @@ LFLAGS			= 	$(PFLAGS) -static -L.
 #
 CODE_CHECK       = 	splint
 CODE_CHECK_ARGS	 = 	-showfunc -mustfreefresh -nullpass -nullret -noeffect
+CODE_CHECK_ARGS  += -I ./include -I ./tests
 
 #
 # Libs, objs targets
